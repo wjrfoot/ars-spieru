@@ -12,7 +12,11 @@ import ij.ImagePlus;
 import ij.ImageStack;
 import ij.measure.ResultsTable;
 import ij.plugin.filter.Analyzer;
+import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,7 +58,10 @@ public class AnalyzeScan {
      * uses the last created file in picture directory
      */
     public AnalyzeScan() {
-        setFileName(FindLastPictureFile.getLastFileName());
+            File dirF = new File(System.getProperty("user.dir"), "data");
+            dirF = new File(dirF,"img042.jpg");
+        setFileName(dirF.getAbsolutePath());
+//        setFileName(FindLastPictureFile.getLastFileName());
     }
 
     /**
@@ -66,6 +73,65 @@ public class AnalyzeScan {
         setFileName(fileName);
     }
 
+    private class MyMouseListner implements MouseListener {
+
+        private int canvasHeight;
+        private int canvasWidth;
+        private int imageHeight;
+        private int imageWidth;
+        
+        public MyMouseListner(ImagePlus ip) {
+            canvasHeight = ip.getCanvas().getHeight();
+            canvasWidth = ip.getCanvas().getWidth();
+            imageHeight = ip.getHeight();
+            imageWidth = ip.getWidth();
+        }
+        
+        @Override
+        public void mouseClicked(MouseEvent arg0) {
+            
+            int x = arg0.getX();
+            int y = arg0.getY();
+            System.out.println("mouseClicked " + arg0.getY() + " " + arg0.getX());
+            System.out.println("canvas H " + canvasHeight + "  W  " + canvasWidth);
+            System.out.println("image H " + imageHeight + "  W  " + imageWidth);
+            int x1 = (x * imageWidth) / canvasWidth;
+            int y1 = (y * imageHeight) / canvasHeight;
+            System.out.println("scaled H " + y1 + "  W  " + x1);
+            Point point = new Point(x1, y1);
+            
+            for (SubImagePlus sip : subImagePlusList) {
+                Rectangle rect = sip.getBoundingBox();
+                System.out.println(rect.toString());
+//                processResults(sip, null);
+                    if (rect.contains(point)) {
+                        processResults(sip, null);
+                        System.out.println("found");
+                    }
+                }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent arg0) {
+            System.out.println("mousePressed");
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent arg0) {
+            System.out.println("mouseReleased");
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent arg0) {
+            System.out.println("mouseEntered");
+        }
+
+        @Override
+        public void mouseExited(MouseEvent arg0) {
+            System.out.println("mouseExited");
+        }
+        
+    }
     /**
      * entry point to run analysis
      */
@@ -76,6 +142,9 @@ public class AnalyzeScan {
         ImagePlus ip1 = ip0.duplicate();
         ip1.getProcessor().flipHorizontal();
         ip1.show();
+        ip1.getCanvas().addMouseListener(new MyMouseListner(ip1));
+        
+        System.out.println(ip1.getHeight() + " " + ip1.getCanvas().getHeight());
 
         ImagePlus ip2 = analyze(ip1);
         ip2.show();
@@ -139,7 +208,7 @@ public class AnalyzeScan {
 
                 processChalk(sip);
 
-                processResults(sip, pw);
+//                processResults(sip, pw);
             }
             System.out.println("done process");
         } catch (IOException ex) {
@@ -147,6 +216,14 @@ public class AnalyzeScan {
         } finally {
             pw.close();
         }
+        
+                EventQueue.invokeLater(() -> {
+
+            BarChartExample ex = new BarChartExample(subImagePlusList);
+            ex.setVisible(true);
+        });
+
+        
     }
 
     /**
@@ -157,8 +234,10 @@ public class AnalyzeScan {
      * @param pw
      */
     private void processResults(SubImagePlus sip, PrintWriter pw) {
+        if (pw != null) {
         pw.println(sip.getKernelResults().split("\\t")[1] + "  ---  " + sip.getChalkResults().split("\\t")[1]);
-
+        }
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -28,36 +28,6 @@
             <version>1.2.12</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>com.asprise.imaging</groupId>
-            <artifactId>java-scanner-access-twain</artifactId>
-            <version>12.0.20.3</version>
-        </dependency>
-        <dependency>
-            <groupId>com.imagingbook</groupId>
-            <artifactId>imagingbook-common</artifactId>
-            <version>3.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.scijava</groupId>
-            <artifactId>pom-scijava</artifactId>
-            <version>31.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.gnome</groupId>
-            <artifactId>morena_win</artifactId>
-            <version>7</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.gnome</groupId>
-            <artifactId>morena</artifactId>
-            <version>7</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.gnome</groupId>
-            <artifactId>morena_license</artifactId>
-            <version>7</version>
-        </dependency>
     </dependencies>
     
     <repositories>

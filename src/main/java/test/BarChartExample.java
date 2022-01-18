@@ -8,7 +8,7 @@ package test;
  *
  * @author wjrfo
  */
-
+import gov.usda.ars.spieru.chalk.controller.SubImagePlus;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -20,12 +20,21 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.util.List;
 
 public class BarChartExample extends JFrame {
 
+    List<SubImagePlus> subImagePlusList;
+
+    public BarChartExample(List<SubImagePlus> subImagePlusList) {
+
+        this.subImagePlusList = subImagePlusList;
+        initUI();
+    }
+
     public BarChartExample() {
 
-        initUI();
+        this(null);
     }
 
     private void initUI() {
@@ -41,28 +50,48 @@ public class BarChartExample extends JFrame {
         pack();
         setTitle("Bar chart");
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     private CategoryDataset createDataset() {
 
-    	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(46, "Gold medals", "USA");
-        dataset.setValue(38, "Gold medals", "China");
-        dataset.setValue(29, "Gold medals", "UK");
-        dataset.setValue(22, "Gold medals", "Russia");
-        dataset.setValue(13, "Gold medals", "South Korea");
-        dataset.setValue(11, "Gold medals", "Germany");
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
+        if (subImagePlusList == null) {
+            dataset.setValue(46, "Gold medals", "USA");
+            dataset.setValue(38, "Gold medals", "China");
+            dataset.setValue(29, "Gold medals", "UK");
+            dataset.setValue(22, "Gold medals", "Russia");
+            dataset.setValue(13, "Gold medals", "South Korea");
+            dataset.setValue(11, "Gold medals", "Germany");
+        } else {
+            double[] bounds = {0.1, 0.2, 0.5, 1.1};
+            int[] count = new int[bounds.length];
+
+            for (SubImagePlus sip : subImagePlusList) {
+                double kernel = Double.parseDouble(sip.getKernelResults().split("\\t")[1]);
+                double chalk = Double.parseDouble(sip.getChalkResults().split("\\t")[1]);
+                double ratio = chalk / kernel;
+                for (int idx = 0; idx < bounds.length; idx++) {
+                    if (ratio < bounds[idx]) {
+                        count[idx]++;
+                        break;
+                    }
+                }
+            }
+            for (int idx = 0; idx < bounds.length; idx++) {
+                dataset.setValue(count[idx], "Gold medals", ""+ bounds[idx]);
+            }
+        }
         return dataset;
     }
 
     private JFreeChart createChart(CategoryDataset dataset) {
 
         JFreeChart barChart = ChartFactory.createBarChart(
-                "Olympic gold medals in London",
+                "Chalk Kernel Analysis (need to add name here)",
                 "",
-                "Gold medals",
+                "Chalk count by category",
                 dataset,
                 PlotOrientation.VERTICAL,
                 false, true, false);
@@ -74,7 +103,7 @@ public class BarChartExample extends JFrame {
 
         EventQueue.invokeLater(() -> {
 
-        	BarChartExample ex = new BarChartExample();
+            BarChartExample ex = new BarChartExample();
             ex.setVisible(true);
         });
     }

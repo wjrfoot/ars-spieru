@@ -4,7 +4,6 @@
  */
 package gov.usda.ars.spieru.chalk.view;
 
-import test.Find_Corners;
 import gov.usda.ars.spieru.chalk.util.RunProgram;
 import gov.usda.ars.spieru.chalk.model.DataStore;
 import gov.usda.ars.spieru.chalk.util.FindLastPictureFile;
@@ -188,8 +187,6 @@ public class MainFrame extends javax.swing.JFrame {
             canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 0, 0, null);
             canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 400, 300, null);
 
-            Find_Corners fc = new Find_Corners();
-            fc.run(ds.getIp1().getProcessor());
 
 //            canvas1.setSize(width, height);
 //            SwingUtilities.invokeLater(new Runnable() {

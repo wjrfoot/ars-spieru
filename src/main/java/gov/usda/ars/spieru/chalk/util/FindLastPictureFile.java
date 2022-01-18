@@ -4,9 +4,6 @@
  */
 package gov.usda.ars.spieru.chalk.util;
 
-import test.*;
-import test.Find_Corners;
-import gov.usda.ars.spieru.chalk.model.*;
 import ij.IJ;
 import ij.ImagePlus;
 import java.io.File;
@@ -24,8 +21,6 @@ public class FindLastPictureFile {
         ImagePlus ip0 = IJ.openImage(flpf.getLastFileName());
         ip0.show();
         ImagePlus ip1 = ip0.duplicate();
-        Find_Corners fc = new Find_Corners();
-        fc.run(ip1.getProcessor());
 
     }
 
