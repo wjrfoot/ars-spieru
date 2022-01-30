@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -54,6 +55,8 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("test");
@@ -111,6 +114,18 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu4.add(jMenuItem4);
 
         jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Help");
+
+        jMenuItem5.setText("About");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -177,13 +192,13 @@ public class MainFrame extends javax.swing.JFrame {
             ImagePlus imp = IJ.openImage(file.getAbsolutePath());
 
             ds.setIp(imp);
-            ds.setIp1(ds.getIp());
-            ds.setIp2(ds.getIp());
-            ds.setIp3(ds.getIp());
-            ds.setIp4(ds.getIp());
+            ds.setIp1(ds.getDupIP());
+            ds.setIp2(ds.getDupIP());
+            ds.setIp3(ds.getDupIP());
+            ds.setIp4(ds.getDupIP());
 
-            int height = ds.getIp().getBufferedImage().getHeight();
-            int width = ds.getIp().getBufferedImage().getWidth();
+            int height = ds.getDupIP().getBufferedImage().getHeight();
+            int width = ds.getDupIP().getBufferedImage().getWidth();
             canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 0, 0, null);
             canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 400, 300, null);
 
@@ -256,6 +271,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+JOptionPane.showMessageDialog(this,
+    "Eggs are not supposed to be green.\ntest test test\nmore",
+    "Durham wheat chalk analyzer",
+    JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -305,11 +327,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     // End of variables declaration//GEN-END:variables
 
 }

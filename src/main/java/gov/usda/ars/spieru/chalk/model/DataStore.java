@@ -15,9 +15,60 @@ import java.util.HashMap;
  */
 final public class DataStore {
 
+ 
+    private final static ArrayList<DataStore> dataStore = new ArrayList<>();
+    private final Config config;
+    
+    public static DataStore dataStoreFactory() {
+        DataStore ds = new DataStore();
+        ds.id = dataStore.size();
+        dataStore.add(ds);
+        return ds;
+
+    }
+
+    public static DataStore getDataStore(int idx) {
+        return dataStore.get(idx);
+    }
+
+    private DataStore() {
+        config = new Config();
+    }
+    
+    private int id = 0;
+    private ImagePlus ip = null; 
+    private ImagePlus ip1 = null; 
+    private ImagePlus ip2 = null; 
+    private ImagePlus ip3 = null; 
+    private ImagePlus ip4 = null; 
+
+    /**
+     * @return the ip
+     */
+    public ImagePlus getDupIP() {
+        return ip.duplicate();
+    }
+
+    /**
+     * @param ip the ip to set
+     */
+    public void setIp(ImagePlus ip) {
+        this.ip = ip;
+    }
+
+    //<editor-fold defaultstate="collapsed" desc="getters/setters">
     /**
      * @return the id
      */
+    /**
+     * @return the config
+     */
+    public Config getConfig() {
+        return config;
+    }
+
+ 
+    
     public int getId() {
         return id;
     }
@@ -77,44 +128,7 @@ final public class DataStore {
     public void setIp4(ImagePlus ip4) {
         this.ip4 = ip4;
     }
-
-    private final static ArrayList<DataStore> dataStore = new ArrayList<>();
-
-    public static DataStore dataStoreFactory() {
-        DataStore ds = new DataStore();
-        ds.id = dataStore.size();
-        dataStore.add(ds);
-        return ds;
-
-    }
-
-    public static DataStore getDataStore(int idx) {
-        return dataStore.get(idx);
-    }
-
-    private DataStore() {
-
-    }
+   
+//</editor-fold>
     
-    private int id = 0;
-    private ImagePlus ip = null; 
-    private ImagePlus ip1 = null; 
-    private ImagePlus ip2 = null; 
-    private ImagePlus ip3 = null; 
-    private ImagePlus ip4 = null; 
-
-    /**
-     * @return the ip
-     */
-    public ImagePlus getIp() {
-        return ip.duplicate();
-    }
-
-    /**
-     * @param ip the ip to set
-     */
-    public void setIp(ImagePlus ip) {
-        this.ip = ip;
-    }
-
 }
