@@ -19,16 +19,21 @@ import javax.imageio.metadata.*;
 public class Metadata {
 
     public static void main(String[] args) {
+        
+        String fileName = "C:\\Users\\wjrfo\\OneDrive\\Pictures\\img004.tiff";
+//        String fileName = "C:\\Users\\wjrfo\\Documents\\NetBeansProjects\\ars-spieru\\data\\img042.jpg";
         Metadata meta = new Metadata();
-        int length = args.length;
-        for ( int i = 0; i < length; i++ )
-            meta.readAndDisplayMetadata( args[i] );
+//        int length = args.length;
+//        for ( int i = 0; i < length; i++ )
+//            meta.readAndDisplayMetadata( args[i] );
+            meta.readAndDisplayMetadata( fileName );
     }
 
     void readAndDisplayMetadata( String fileName ) {
         try {
 
             File file = new File( fileName );
+            System.out.println(fileName + " " + file.exists());
             ImageInputStream iis = ImageIO.createImageInputStream(file);
             Iterator<ImageReader> readers = ImageIO.getImageReaders(iis);
 

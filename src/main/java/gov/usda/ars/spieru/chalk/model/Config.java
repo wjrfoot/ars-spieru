@@ -28,6 +28,14 @@ public class Config {
 
     private Properties properties = new Properties();
     private String propertiesFileName = "chalk.xml";
+    public static String ChalkThresholdLow = "ChalkThresholdLow";
+    public static String ChalkThresholdHigh = "ChalkThresholdHigh";
+    public static String KernelThresholdLow = "KernelThresholdLow";
+    public static String KernelThresholdHigh = "KernelThresholdHigh";
+    public static String MeasurementParams = "MeasurementParams";
+    public static String AnalyzeBase = "AnalyzeBase";
+    public static String AnalyzeKernel = "AnalyzeKernel";
+    public static String AnalyzeChalk = "AnalyzeChalk";
 
     public static void main(String[] args) {  // quick and dirty instead of using junit
         String dirS = System.getProperty("user.home");
@@ -45,11 +53,15 @@ public class Config {
     private int hiThreshold1 = 255;
     private int lowThreshold2 = 185;     // pass 2 analyze particles threshold 
     private int hiThreshold2 = 255;
+    private String lowThresholdKernel = "80";
+    private String hiThresholdKernel = "255";
+    private String lowThresholdChalk = "185";
+    private String hiThresholdChalk = "255";
     private String measureParams = "area centroid perimeter fit shape redirect=None decimal=2 bounding rectangle";
     private String analyzeBase = "size=100-10000 circularity=0.1-1.00 bounding rectanble";
     private String analyzeKernel = "size=10-30000 circularity=0.1-1.00";
     private String analyzeChalk = "size=10-30000 circularity=0.1-1.00";
-
+    private String pictureDirectory = System.getProperty("user.home") + File.separator + "Pictures";
     /**
      * makes directory in AppData/Local for this application
      */
@@ -69,15 +81,17 @@ public class Config {
                 try {
                     InputStream is = new FileInputStream(localFile);
                     properties.loadFromXML(is);
-                    setLowThreshold1(Integer.getInteger((String) properties.get("lowThreshold1")));
-                    setHiThreshold1(Integer.getInteger((String) properties.get("hiThreshold1")));
-                    setLowThreshold2(Integer.getInteger((String) properties.get("lowThreshold2")));
-                    setHiThreshold2(Integer.getInteger((String) properties.get("hiThreshold2")));
-                    setMeasureParams((String)properties.get("measureParams"));
-                    setAnalyzeBase((String)properties.get("analyzeBase"));
-                    setAnalyzeChalk((String)properties.get("analyzeChalk"));
-                    setAnalyzeKernel((String)properties.get("analyzeKernel"));
-//                    se(Integer.getInteger((String) properties.get("hiThreshold2")));
+                    String str = properties.getProperty(KernelThresholdLow);
+                    int stri = Integer.parseInt(str.trim());
+                    setLowThresholdKernel((String) properties.get(KernelThresholdLow));
+                    setHiThresholdKernel((String) properties.get(KernelThresholdHigh));
+                    setLowThresholdChalk((String) properties.get(ChalkThresholdLow));
+                    setHiThresholdChalk((String) properties.get(ChalkThresholdHigh));
+                    setMeasureParams((String)properties.get(MeasurementParams));
+                    setAnalyzeBase((String)properties.get(AnalyzeBase));
+                    setAnalyzeChalk((String)properties.get(AnalyzeChalk));
+                    setAnalyzeKernel((String)properties.get(AnalyzeKernel));
+//                    se(Integer.parseInt((String) properties.get(ChalkThresholdHigh)));
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -89,14 +103,14 @@ public class Config {
     }
 
     public void saveProperties() {
-        properties.setProperty("lowThreshold1", Integer.toString(getLowThreshold1()));
-        properties.setProperty("hiThreshold1", Integer.toString(getHiThreshold1()));
-        properties.setProperty("lowThreshold2", Integer.toString(getLowThreshold2()));
-        properties.setProperty("hiThreshold2", Integer.toString(getHiThreshold2()));
-        properties.setProperty("measureParams", getMeasureParams());
-        properties.setProperty("analyzeBase", getAnalyzeBase());
-        properties.setProperty("analyzeChalk", getAnalyzeChalk());
-        properties.setProperty("analyzeKernel", getAnalyzeKernel());
+        properties.setProperty(KernelThresholdLow, getLowThresholdKernel());
+        properties.setProperty(KernelThresholdHigh, getHiThresholdKernel());
+        properties.setProperty(ChalkThresholdLow, getLowThresholdChalk());
+        properties.setProperty(ChalkThresholdHigh, getHiThresholdChalk());
+        properties.setProperty(MeasurementParams, getMeasureParams());
+        properties.setProperty(AnalyzeBase, getAnalyzeBase());
+        properties.setProperty(AnalyzeChalk, getAnalyzeChalk());
+        properties.setProperty(AnalyzeKernel, getAnalyzeKernel());
         File localDir = new File(System.getProperty("user.home"), "AppData\\Local\\ARS-SPIERU");
         if (!localDir.exists()) {
             localDir.mkdir();
@@ -114,61 +128,63 @@ public class Config {
     }
 
     //<editor-fold defaultstate="collapsed" desc="getters/setters">
+    
     /**
-     * @return the lowThreshold1
+     * @return the lowThresholdKernel
      */
-    public int getLowThreshold1() {
-        return lowThreshold1;
+    public String getLowThresholdKernel() {
+        return lowThresholdKernel;
     }
 
     /**
-     * @param lowThreshold1 the lowThreshold1 to set
+     * @param lowThresholdKernel the lowThresholdKernel to set
      */
-    public void setLowThreshold1(int lowThreshold1) {
-        this.lowThreshold1 = lowThreshold1;
+    public void setLowThresholdKernel(String lowThresholdKernel) {
+        this.lowThresholdKernel = lowThresholdKernel;
     }
 
     /**
-     * @return the hiThreshold1
+     * @return the hiThresholdKernel
      */
-    public int getHiThreshold1() {
-        return hiThreshold1;
+    public String getHiThresholdKernel() {
+        return hiThresholdKernel;
     }
 
     /**
-     * @param hiThreshold1 the hiThreshold1 to set
+     * @param hiThresholdKernel the hiThresholdKernel to set
      */
-    public void setHiThreshold1(int hiThreshold1) {
-        this.hiThreshold1 = hiThreshold1;
+    public void setHiThresholdKernel(String hiThresholdKernel) {
+        this.hiThresholdKernel = hiThresholdKernel;
     }
 
     /**
-     * @return the lowThreshold2
+     * @return the lowThresholdChalk
      */
-    public int getLowThreshold2() {
-        return lowThreshold2;
+    public String getLowThresholdChalk() {
+        return lowThresholdChalk;
     }
 
     /**
-     * @param lowThreshold2 the lowThreshold2 to set
+     * @param lowThresholdChalk the lowThresholdChalk to set
      */
-    public void setLowThreshold2(int lowThreshold2) {
-        this.lowThreshold2 = lowThreshold2;
+    public void setLowThresholdChalk(String lowThresholdChalk) {
+        this.lowThresholdChalk = lowThresholdChalk;
     }
 
     /**
-     * @return the hiThreshold2
+     * @return the hiThresholdChalk
      */
-    public int getHiThreshold2() {
-        return hiThreshold2;
+    public String getHiThresholdChalk() {
+        return hiThresholdChalk;
     }
 
     /**
-     * @param hiThreshold2 the hiThreshold2 to set
+     * @param hiThresholdChalk the hiThresholdChalk to set
      */
-    public void setHiThreshold2(int hiThreshold2) {
-        this.hiThreshold2 = hiThreshold2;
+    public void setHiThresholdChalk(String hiThresholdChalk) {
+        this.hiThresholdChalk = hiThresholdChalk;
     }
+
     /**
      * @return the analyzeBase
      */

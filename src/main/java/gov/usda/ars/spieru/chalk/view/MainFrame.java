@@ -31,6 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        this.setTitle("Durham wheat chalk analyzer");
         ds = DataStore.dataStoreFactory();
 
     }
@@ -48,8 +49,11 @@ public class MainFrame extends javax.swing.JFrame {
         canvas1 = new java.awt.Canvas();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMOpen = new javax.swing.JMenuItem();
+        jMSave = new javax.swing.JMenuItem();
+        jMConfig = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -63,23 +67,35 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setMnemonic('O');
-        jMenuItem1.setText("Open");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMOpen.setMnemonic('O');
+        jMOpen.setText("Open");
+        jMOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jMOpen);
 
-        jMenuItem2.setMnemonic('x');
-        jMenuItem2.setText("Exit");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMSave.setMnemonic('x');
+        jMSave.setText("Save");
+        jMSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(jMSave);
+
+        jMConfig.setText("Config");
+        jMConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMConfigActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMConfig);
+        jMenu1.add(jSeparator1);
+
+        jMExit.setText("Exit");
+        jMenu1.add(jMExit);
 
         jMenuBar1.add(jMenu1);
 
@@ -278,6 +294,10 @@ JOptionPane.showMessageDialog(this,
     JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
+    private void jMConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMConfigActionPerformed
+        new ConfigDialog(this, rootPaneCheckingEnabled).setVisible(true);
+    }//GEN-LAST:event_jMConfigActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -323,17 +343,20 @@ JOptionPane.showMessageDialog(this,
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser OpenFile;
     private java.awt.Canvas canvas1;
+    private javax.swing.JMenuItem jMConfig;
+    private javax.swing.JMenuItem jMExit;
+    private javax.swing.JMenuItem jMOpen;
+    private javax.swing.JMenuItem jMSave;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 
 }
