@@ -36,6 +36,7 @@ public class Config {
     public static String AnalyzeBase = "AnalyzeBase";
     public static String AnalyzeKernel = "AnalyzeKernel";
     public static String AnalyzeChalk = "AnalyzeChalk";
+    private static String ScanDirectory = "ScanDirectory";
 
     public static void main(String[] args) {  // quick and dirty instead of using junit
         String dirS = System.getProperty("user.home");
@@ -61,7 +62,7 @@ public class Config {
     private String analyzeBase = "size=100-10000 circularity=0.1-1.00 bounding rectanble";
     private String analyzeKernel = "size=10-30000 circularity=0.1-1.00";
     private String analyzeChalk = "size=10-30000 circularity=0.1-1.00";
-    private String pictureDirectory = System.getProperty("user.home") + File.separator + "Pictures";
+    private String scanDirectory = System.getProperty("user.home") + File.separator + "Pictures";
     /**
      * makes directory in AppData/Local for this application
      */
@@ -91,6 +92,7 @@ public class Config {
                     setAnalyzeBase((String)properties.get(AnalyzeBase));
                     setAnalyzeChalk((String)properties.get(AnalyzeChalk));
                     setAnalyzeKernel((String)properties.get(AnalyzeKernel));
+                    setScanDirectory((String) properties.getProperty(ScanDirectory));
 //                    se(Integer.parseInt((String) properties.get(ChalkThresholdHigh)));
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,6 +113,8 @@ public class Config {
         properties.setProperty(AnalyzeBase, getAnalyzeBase());
         properties.setProperty(AnalyzeChalk, getAnalyzeChalk());
         properties.setProperty(AnalyzeKernel, getAnalyzeKernel());
+        properties.setProperty(AnalyzeKernel, getAnalyzeKernel());
+        properties.setProperty(ScanDirectory, getScanDirectory());
         File localDir = new File(System.getProperty("user.home"), "AppData\\Local\\ARS-SPIERU");
         if (!localDir.exists()) {
             localDir.mkdir();
@@ -241,6 +245,21 @@ public class Config {
         this.measureParams = measureParams;
     }
 
+  
 //</editor-fold>
+
+    /**
+     * @return the scanDirectory
+     */
+    public String getScanDirectory() {
+        return scanDirectory;
+    }
+
+    /**
+     * @param scanDirectory the scanDirectory to set
+     */
+    public void setScanDirectory(String scanDirectory) {
+        this.scanDirectory = scanDirectory;
+    }
 
 }

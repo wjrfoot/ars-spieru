@@ -4,6 +4,7 @@
  */
 package gov.usda.ars.spieru.chalk.view;
 
+import gov.usda.ars.spieru.chalk.model.Config;
 import gov.usda.ars.spieru.chalk.util.RunProgram;
 import gov.usda.ars.spieru.chalk.model.DataStore;
 import gov.usda.ars.spieru.chalk.util.FindLastPictureFile;
@@ -24,7 +25,7 @@ import javax.swing.filechooser.FileFilter;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private DataStore ds = DataStore.dataStoreFactory();
+    private DataStore dataStore = DataStore.dataStoreFactory();
 
     /**
      * Creates new form NewJFrame
@@ -32,7 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         this.setTitle("Durham wheat chalk analyzer");
-        ds = DataStore.dataStoreFactory();
+        dataStore = DataStore.dataStoreFactory();
 
     }
 
@@ -58,7 +59,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jMAnalyze = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
 
@@ -121,13 +122,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu4.setText("Analyze");
 
-        jMenuItem4.setText("Analyze");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        jMAnalyze.setText("Analyze");
+        jMAnalyze.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                jMAnalyzeActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem4);
+        jMenu4.add(jMAnalyze);
 
         jMenuBar1.add(jMenu4);
 
@@ -167,7 +168,10 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openActionPerformed
         // TODO add your handling code here:
-        OpenFile.setCurrentDirectory(new File("./data"));
+        Config config = dataStore.getConfig();
+        File dirf = new File(config.getScanDirectory());
+        JFileChooser jfc = new JFileChooser(dirf);
+//        OpenFile.setCurrentDirectory(new File(config.getScanDirectory()));
         FileFilter fileFilter = new FileFilter() {
             @Override
             public boolean accept(File f) {
@@ -187,13 +191,16 @@ public class MainFrame extends javax.swing.JFrame {
             }
         };
 
-        OpenFile.setFileFilter(fileFilter);
+//        OpenFile.setFileFilter(fileFilter);
+        jfc.setFileFilter(fileFilter);
         //Handle open button action.
-        int returnVal = OpenFile.showOpenDialog(MainFrame.this);
+        int returnVal = jfc.showOpenDialog(MainFrame.this);
+//        int returnVal = OpenFile.showOpenDialog(MainFrame.this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-            File file = OpenFile.getSelectedFile();
+//            File file = OpenFile.getSelectedFile();
+            File file = jfc.getSelectedFile();
             System.out.println("selected file " + file.getName());
 //            try {
 //                System.out.println("current directory : " + new File(".").getCanonicalPath());
@@ -207,16 +214,16 @@ public class MainFrame extends javax.swing.JFrame {
 
             ImagePlus imp = IJ.openImage(file.getAbsolutePath());
 
-            ds.setIp(imp);
-            ds.setIp1(ds.getDupIP());
-            ds.setIp2(ds.getDupIP());
-            ds.setIp3(ds.getDupIP());
-            ds.setIp4(ds.getDupIP());
+            dataStore.setIp(imp);
+            dataStore.setIp1(dataStore.getDupIP());
+            dataStore.setIp2(dataStore.getDupIP());
+            dataStore.setIp3(dataStore.getDupIP());
+            dataStore.setIp4(dataStore.getDupIP());
 
-            int height = ds.getDupIP().getBufferedImage().getHeight();
-            int width = ds.getDupIP().getBufferedImage().getWidth();
-            canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 0, 0, null);
-            canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 400, 300, null);
+            int height = dataStore.getDupIP().getBufferedImage().getHeight();
+            int width = dataStore.getDupIP().getBufferedImage().getWidth();
+            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 0, 0, null);
+            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 400, 300, null);
 
 
 //            canvas1.setSize(width, height);
@@ -224,22 +231,22 @@ public class MainFrame extends javax.swing.JFrame {
 //                @Override
 //                public void run() {
 //            canvas1.setSize(height, width);
-//            canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 0, 0, null);
+//            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 0, 0, null);
 //                    }
 //            });
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
 //            canvas1.setSize(width, height);
-//            canvas1.getGraphics().drawImage(ds.getIp1().getBufferedImage(), 0, 0, null);
+//            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 0, 0, null);
 //            }
 //        });
 // 
-            ds.getIp4().unlock(); // unlock im to run other commands
-            IJ.run(ds.getIp4(), "8-bit", ""); // run “Invert” command on im
+            dataStore.getIp4().unlock(); // unlock im to run other commands
+            IJ.run(dataStore.getIp4(), "8-bit", ""); // run “Invert” command on im
 //        IJ.run(im, "Analyze Particles...", "size=0.5-100 circularity=0.1-1.00 show=Outlines display"); 
-            ds.getIp4().lock(); // lock im again (to be safe)
+            dataStore.getIp4().lock(); // lock im again (to be safe)
 
-            //     ds.getIp4().getProcessor().rotate(90);
+            //     dataStore.getIp4().getProcessor().rotate(90);
 //            Panel panel = null;
 /*
             try {
@@ -278,14 +285,14 @@ public class MainFrame extends javax.swing.JFrame {
             rp.runProg();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMAnalyzeActionPerformed
         System.out.println("analyze");        // TODO add your handling code here:    FindLastPictureFile flpf = new FindLastPictureFile();
         FindLastPictureFile flpf = new FindLastPictureFile();
         System.out.println("file name " + flpf.getLastFileName());
         ImagePlus ip0 = IJ.openImage(flpf.getLastFileName());
         ip0.show();
 
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_jMAnalyzeActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
 JOptionPane.showMessageDialog(this,
@@ -343,6 +350,7 @@ JOptionPane.showMessageDialog(this,
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser OpenFile;
     private java.awt.Canvas canvas1;
+    private javax.swing.JMenuItem jMAnalyze;
     private javax.swing.JMenuItem jMConfig;
     private javax.swing.JMenuItem jMExit;
     private javax.swing.JMenuItem jMOpen;
@@ -354,7 +362,6 @@ JOptionPane.showMessageDialog(this,
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables

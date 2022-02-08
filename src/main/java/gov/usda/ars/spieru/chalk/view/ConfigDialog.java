@@ -5,6 +5,7 @@
 package gov.usda.ars.spieru.chalk.view;
 
 import gov.usda.ars.spieru.chalk.model.Config;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -19,6 +20,11 @@ public class ConfigDialog extends javax.swing.JDialog {
     public ConfigDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        jTFKernelThresholdValueHi.setInputVerifier(new ThresholdInputVerifer(jTFKernelThresholdValueLo, jTFKernelThresholdValueHi));
+        jTFKernelThresholdValueLo.setInputVerifier(new ThresholdInputVerifer(jTFKernelThresholdValueLo, jTFKernelThresholdValueHi));
+        jTFChalkThresholdValueHi.setInputVerifier(new ThresholdInputVerifer(jTFChalkThresholdValueLo, jTFChalkThresholdValueHi));
+        jTFChalkThresholdValueLo.setInputVerifier(new ThresholdInputVerifer(jTFChalkThresholdValueLo, jTFChalkThresholdValueHi));
     }
 
     /**
@@ -30,11 +36,8 @@ public class ConfigDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTFMeasurementParamString = new javax.swing.JTextField();
-        jTFAnalyzeParticlesParamString = new javax.swing.JTextField();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTFKernelAnalyzeParticlesParamString = new javax.swing.JTextField();
@@ -50,52 +53,24 @@ public class ConfigDialog extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jTFChalkThresholdValueLo = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTFChalkThresholdHi = new javax.swing.JTextField();
-        jBSave = new javax.swing.JButton();
+        jTFChalkThresholdValueHi = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTFMeasurementParamString = new javax.swing.JTextField();
+        jTFAnalyzeParticlesParamString = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jTFScanDirectory = new javax.swing.JTextField();
+        JBScanDirectoryFileChooser = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         jBLoad = new javax.swing.JButton();
+        jBSave = new javax.swing.JButton();
         jBExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Base"));
-        jPanel1.setName("Base"); // NOI18N
-
-        jLabel1.setText("Measurement param string");
-
-        jLabel2.setText("Analyze Patricles params string");
-
-        jTFMeasurementParamString.setText("jTextField1");
-
-        jTFAnalyzeParticlesParamString.setText("jTextField2");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addGap(0, 226, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTFMeasurementParamString)
-                    .addComponent(jTFAnalyzeParticlesParamString))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFMeasurementParamString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTFAnalyzeParticlesParamString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Kernel"));
         jPanel2.setName("Kernel"); // NOI18N
@@ -108,10 +83,14 @@ public class ConfigDialog extends javax.swing.JDialog {
 
         jLabel6.setText("Low:");
 
-        jTFKernelThresholdValueLo.setText("jTextField5");
+        jTFKernelThresholdValueLo.setColumns(5);
+        jTFKernelThresholdValueLo.setText("0");
         jTFKernelThresholdValueLo.setToolTipText("");
+        jTFKernelThresholdValueLo.setMinimumSize(new java.awt.Dimension(60, 20));
 
-        jTFKernelThresholdValueHi.setText("jTextField5");
+        jTFKernelThresholdValueHi.setColumns(5);
+        jTFKernelThresholdValueHi.setText("255");
+        jTFKernelThresholdValueHi.setMinimumSize(new java.awt.Dimension(60, 20));
 
         jLabel7.setText("High:");
 
@@ -134,7 +113,7 @@ public class ConfigDialog extends javax.swing.JDialog {
                         .addComponent(jLabel6)
                         .addGap(18, 18, 18)
                         .addComponent(jTFKernelThresholdValueLo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel7)
                         .addGap(42, 42, 42)
                         .addComponent(jTFKernelThresholdValueHi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,8 +136,11 @@ public class ConfigDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jPanel6.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 453, -1));
+
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Chalk"));
         jPanel3.setName("Chalk"); // NOI18N
+        jPanel3.setPreferredSize(new java.awt.Dimension(453, 119));
 
         jLabel4.setText("Analyze Patricles params string");
 
@@ -168,67 +150,166 @@ public class ConfigDialog extends javax.swing.JDialog {
 
         jLabel9.setText("Low:");
 
-        jTFChalkThresholdValueLo.setText("jTextField5");
+        jTFChalkThresholdValueLo.setColumns(5);
+        jTFChalkThresholdValueLo.setText("0");
+        jTFChalkThresholdValueLo.setMinimumSize(new java.awt.Dimension(60, 20));
 
         jLabel10.setText("High:");
 
-        jTFChalkThresholdHi.setText("jTextField5");
+        jTFChalkThresholdValueHi.setColumns(5);
+        jTFChalkThresholdValueHi.setText("255");
+        jTFChalkThresholdValueHi.setMinimumSize(new java.awt.Dimension(60, 20));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTFChalkThresholdValueLo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel10)
-                        .addGap(49, 49, 49)
-                        .addComponent(jTFChalkThresholdHi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 87, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jTFChalkAnalyzeParticlesParamString))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel4)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTFChalkAnalyzeParticlesParamString)))
-                .addContainerGap())
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(203, 203, 203)
+                                .addComponent(jLabel10)
+                                .addGap(47, 47, 47)
+                                .addComponent(jTFChalkThresholdValueHi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(103, 103, 103)
+                                .addComponent(jTFChalkThresholdValueLo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(195, 195, 195)))))
+                .addGap(0, 87, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTFChalkThresholdValueLo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFChalkThresholdHi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jTFChalkThresholdValueHi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTFChalkAnalyzeParticlesParamString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        jPanel6.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, -1, 140));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Base"));
+        jPanel1.setName("Base"); // NOI18N
+
+        jLabel1.setText("Measurement param string");
+
+        jLabel2.setText("Analyze Patricles params string");
+
+        jTFMeasurementParamString.setText("jTextField1");
+
+        jTFAnalyzeParticlesParamString.setText("jTextField2");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTFMeasurementParamString)
+                    .addComponent(jTFAnalyzeParticlesParamString))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFMeasurementParamString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFAnalyzeParticlesParamString, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel6.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 11, 453, -1));
+
+        jTabbedPane1.addTab("Analysis", jPanel6);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Scan Directory"));
+
+        jTFScanDirectory.setText("jTextField1");
+
+        JBScanDirectoryFileChooser.setText("Select");
+        JBScanDirectoryFileChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBScanDirectoryFileChooserActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTFScanDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JBScanDirectoryFileChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTFScanDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBScanDirectoryFileChooser))
                 .addContainerGap())
         );
 
-        jBSave.setText("Save");
-        jBSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBSaveActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 33, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(494, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Scanner", jPanel7);
 
         jBLoad.setText("Load");
         jBLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBLoadActionPerformed(evt);
+            }
+        });
+
+        jBSave.setText("Save");
+        jBSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSaveActionPerformed(evt);
             }
         });
 
@@ -239,40 +320,54 @@ public class ConfigDialog extends javax.swing.JDialog {
             }
         });
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jBLoad)
+                .addGap(55, 55, 55)
+                .addComponent(jBSave)
+                .addGap(64, 64, 64)
+                .addComponent(jBExit)
+                .addContainerGap(116, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBLoad)
+                    .addComponent(jBSave)
+                    .addComponent(jBExit))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(jBLoad)
-                .addGap(54, 54, 54)
-                .addComponent(jBSave)
-                .addGap(44, 44, 44)
-                .addComponent(jBExit)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBSave)
-                    .addComponent(jBLoad)
-                    .addComponent(jBExit))
-                .addGap(0, 31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(472, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -280,6 +375,7 @@ public class ConfigDialog extends javax.swing.JDialog {
 
     private void jBSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSaveActionPerformed
         System.out.println("save");
+        configData.saveProperties();
     }//GEN-LAST:event_jBSaveActionPerformed
 
     private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed
@@ -293,15 +389,26 @@ public class ConfigDialog extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jBLoadActionPerformed
 
+    private void JBScanDirectoryFileChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBScanDirectoryFileChooserActionPerformed
+        JFileChooser jfc = new JFileChooser(System.getProperty("user.home"));
+        jfc.setFileSelectionMode (JFileChooser.DIRECTORIES_ONLY);
+        int rtn = jfc.showDialog(jPanel1, "Select directory");
+        if (rtn == JFileChooser.APPROVE_OPTION) {
+            configData.setScanDirectory(jfc.getSelectedFile().getAbsolutePath());
+            jTFScanDirectory.setText(jfc.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_JBScanDirectoryFileChooserActionPerformed
+
     private void loadProperties() {
         jTFAnalyzeParticlesParamString.setText(configData.getAnalyzeBase());
         jTFChalkAnalyzeParticlesParamString.setText(configData.getAnalyzeChalk());
         jTFKernelAnalyzeParticlesParamString.setText(configData.getAnalyzeKernel());
         jTFMeasurementParamString.setText(configData.getMeasureParams());
-        jTFChalkThresholdHi.setText(configData.getHiThresholdChalk());
+        jTFChalkThresholdValueHi.setText(configData.getHiThresholdChalk());
         jTFChalkThresholdValueLo.setText(configData.getLowThresholdChalk());
         jTFKernelThresholdValueHi.setText(configData.getHiThresholdKernel());
         jTFKernelThresholdValueLo.setText(configData.getLowThresholdKernel());
+        jTFScanDirectory.setText(configData.getScanDirectory());
         this.repaint();
     }
     
@@ -349,6 +456,7 @@ public class ConfigDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBScanDirectoryFileChooser;
     private javax.swing.JButton jBExit;
     private javax.swing.JButton jBLoad;
     private javax.swing.JButton jBSave;
@@ -365,13 +473,19 @@ public class ConfigDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JTextField jTFAnalyzeParticlesParamString;
     private javax.swing.JTextField jTFChalkAnalyzeParticlesParamString;
-    private javax.swing.JTextField jTFChalkThresholdHi;
+    private javax.swing.JTextField jTFChalkThresholdValueHi;
     private javax.swing.JTextField jTFChalkThresholdValueLo;
     private javax.swing.JTextField jTFKernelAnalyzeParticlesParamString;
     private javax.swing.JTextField jTFKernelThresholdValueHi;
     private javax.swing.JTextField jTFKernelThresholdValueLo;
     private javax.swing.JTextField jTFMeasurementParamString;
+    private javax.swing.JTextField jTFScanDirectory;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

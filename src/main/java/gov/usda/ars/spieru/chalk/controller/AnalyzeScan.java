@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package test;
+package gov.usda.ars.spieru.chalk.controller;
 
 import gov.usda.ars.spieru.chalk.controller.*;
 import gov.usda.ars.spieru.chalk.util.FindLastPictureFile;
@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.text.DecimalFormat;
+import test.BarChartExample;
 
 /**
  *
@@ -239,21 +240,19 @@ public class AnalyzeScan {
         }
         
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                SubImagePlusFrame sipf = new SubImagePlusFrame();
-                sipf.getChalkJTF().setText(sip.getChalkResults().split("\\t")[1]);
-                sipf.getKernelJTF().setText(sip.getKernelResults().split("\\t")[1]);
-                sipf.getKernelPitJL().setIcon(new ImageIcon(sip.getKernelIP().getImage()));
-                sipf.getChalkPictJL().setIcon(new ImageIcon(sip.getChalkIP().getImage()));
-                sipf.getOriginalPitJL().setIcon(new ImageIcon(sip.getOriginalIP().getImage()));
-                double kernel = Double.parseDouble(sip.getKernelResults().split("\\t")[1]);
-                double chalk = Double.parseDouble(sip.getChalkResults().split("\\t")[1]);
-                String temp = (kernel == chalk) ? "invalid"
-                        : new DecimalFormat("#.0#").format(chalk / kernel) + "%"; // rounded to 2 decimal places
-                sipf.getPercentJTF().setText(temp);
-                sipf.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            SubImagePlusFrame sipf = new SubImagePlusFrame();
+            sipf.getChalkJTF().setText(sip.getChalkResults().split("\\t")[1]);
+            sipf.getKernelJTF().setText(sip.getKernelResults().split("\\t")[1]);
+            sipf.getKernelPitJL().setIcon(new ImageIcon(sip.getKernelIP().getImage()));
+            sipf.getChalkPictJL().setIcon(new ImageIcon(sip.getChalkIP().getImage()));
+            sipf.getOriginalPitJL().setIcon(new ImageIcon(sip.getOriginalIP().getImage()));
+            double kernel = Double.parseDouble(sip.getKernelResults().split("\\t")[1]);
+            double chalk = Double.parseDouble(sip.getChalkResults().split("\\t")[1]);
+            String temp = (kernel == chalk) ? "invalid"
+                    : new DecimalFormat("#.0#").format(chalk / kernel) + "%"; // rounded to 2 decimal places
+            sipf.getPercentJTF().setText(temp);
+            sipf.setVisible(true);
         });
 
     }
