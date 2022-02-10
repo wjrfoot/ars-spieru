@@ -5,6 +5,7 @@
 package gov.usda.ars.spieru.chalk.controller;
 
 import gov.usda.ars.spieru.chalk.controller.*;
+import gov.usda.ars.spieru.chalk.model.Config;
 import gov.usda.ars.spieru.chalk.util.FindLastPictureFile;
 import gov.usda.ars.spieru.chalk.view.SubImagePlusFrame;
 import ij.IJ;
@@ -48,6 +49,7 @@ public class AnalyzeScan {
     private int lowTH = 60;
     private int hiTH = 185;
     private String fileName = null;
+    private Config config = null;
 
     public static void main(String[] args) {
         System.out.println("starting analyze");
@@ -62,6 +64,7 @@ public class AnalyzeScan {
             File dirF = new File(System.getProperty("user.dir"), "data");
             dirF = new File(dirF,"img042.jpg");
         setFileName(dirF.getAbsolutePath());
+        setConfig(new Config());
 //        setFileName(FindLastPictureFile.getLastFileName());
     }
 
@@ -70,8 +73,10 @@ public class AnalyzeScan {
      *
      * @param fileName
      */
-    public AnalyzeScan(String fileName) {
+    public AnalyzeScan(String fileName, Config config) {
         setFileName(fileName);
+        setConfig(config);
+        
     }
 
     private class MyMouseListner implements MouseListener {
@@ -160,13 +165,16 @@ public class AnalyzeScan {
     private ImagePlus analyze(ImagePlus baseIP) {
 
         ImagePlus ip = baseIP.duplicate();
-        IJ.run(ip, "Set Measurements...",
-                "area centroid perimeter fit shape redirect=None decimal=2 bounding rectangle");
+//        IJ.run(ip, "Set Measurements...",
+//                "area centroid perimeter fit shape redirect=None decimal=2 bounding rectangle");
+        IJ.run(ip, "Set Measurements...", getConfig().getMeasureParamsBase());
         IJ.run(ip, "8-bit", "");
         ip.getProcessor().setAutoThreshold("Default Dark");
-        ip.getProcessor().setThreshold(getLowTH(), 255, 0);
+        ip.getProcessor().setThreshold(getConfig().getLowThresholdKernel(hiTH), 
+                getConfig().getHiThresholdKernel(hiTH), 0);
         ResultsTable.getResultsTable().reset();
-        IJ.run(ip, "Analyze Particles...", "size=100-10000 circularity=0.1-1.00 bounding rectanble");
+        IJ.run(ip, "Analyze Particles...", getConfig().getAnalyzeBase());
+//        IJ.run(ip, "Analyze Particles...", "size=100-10000 circularity=0.1-1.00 bounding rectanble");
 //        dumpResultsTable(ResultsTable.getResultsTable());
 //        ResultsTable.getResultsTable().reset();;
 //        IJ.run(ip, "Find Edges", "");
@@ -349,8 +357,7 @@ public class AnalyzeScan {
 //	// analyze particles
 //      run("Set Measurements...",
 //	"area centroid perimeter fit shape redirect=None decimal=2");
-        IJ.run(ip, "Set Measurements...",
-                "area centroid perimeter fit shape redirect=None decimal=2");
+        IJ.run(ip, "Set Measurements...", getConfig().getMeasureParamsBase());
 
 //	// set the threshold
 //	run("8-bit");
@@ -360,14 +367,15 @@ public class AnalyzeScan {
         ip.getProcessor().setAutoThreshold("Default Dark");
 
 //	setThreshold(lowTH, 255);
-        ip.getProcessor().setThreshold(getLowTH(), 255, 0);
+        ip.getProcessor().setThreshold(getConfig().getLowThresholdKernel(hiTH), 
+                getConfig().getHiThresholdKernel(hiTH), 0);
 
 //	// analyze particles
 //	run("Analyze Particles...",
 //	"size=minSz1-30 circularity=0.1-1.00" + 
 //	" show=[Overlay Masks] display");
         // use different size since we are working in pixels instead of mm
-        IJ.run(ip, "Analyze Particles...", "size=10-30000 circularity=0.1-1.00");
+        IJ.run(ip, "Analyze Particles...", getConfig().getAnalyzeKernel());
 //        Analyzer analyzer = new Analyzer();
 //        analyzer.setup("size=10-30000 circularity=0.1-1.00", ip);
 //        analyzer.run(ip.getProcessor());
@@ -390,8 +398,7 @@ public class AnalyzeScan {
 //	// process the duplicate for chalk
 //	run("Set Measurements...",
 //	"area centroid perimeter fit shape redirect=None decimal=2");
-        IJ.run(ip, "Set Measurements...",
-                "area centroid perimeter fit shape redirect=None decimal=2");
+        IJ.run(ip, "Set Measurements...", getConfig().getMeasureParamsBase());
 
         // try to smooth image and trim tips
 //	run("Subtract Background...", "rolling=5 create");
@@ -427,6 +434,9 @@ public class AnalyzeScan {
     private void writeIP(ImagePlus ip) {
 //             System.out.println(new File(System.getProperty("user.dir"), "data"));
         File dirF = new File(System.getProperty("user.dir"), "data\\roiTest");
+        if (!dirF.exists()) {
+            dirF.mkdirs();
+        }
         String fileName = System.currentTimeMillis() + ".jpg";
 //        fileName = "fred" + ".jpg";
         File outF = new File(dirF, fileName);
@@ -483,5 +493,19 @@ public class AnalyzeScan {
         this.fileName = fileName;
     }
 //</editor-fold>
+
+    /**
+     * @param config the config to set
+     */
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+
+    /**
+     * @return the config
+     */
+    public Config getConfig() {
+        return config;
+    }
 
 }

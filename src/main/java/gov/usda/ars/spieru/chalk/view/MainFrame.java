@@ -4,6 +4,8 @@
  */
 package gov.usda.ars.spieru.chalk.view;
 
+import gov.usda.ars.spieru.chalk.controller.AnalyzeScan;
+import gov.usda.ars.spieru.chalk.controller.Scan;
 import gov.usda.ars.spieru.chalk.model.Config;
 import gov.usda.ars.spieru.chalk.util.RunProgram;
 import gov.usda.ars.spieru.chalk.model.DataStore;
@@ -11,10 +13,12 @@ import gov.usda.ars.spieru.chalk.util.FindLastPictureFile;
 
 import ij.IJ;
 import ij.ImagePlus;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.IIOImage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -26,6 +30,7 @@ import javax.swing.filechooser.FileFilter;
 public class MainFrame extends javax.swing.JFrame {
 
     private DataStore dataStore = DataStore.dataStoreFactory();
+    private File imageFile = null;
 
     /**
      * Creates new form NewJFrame
@@ -57,11 +62,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMExit = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jMScan = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMAnalyze = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMAbout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("test");
@@ -81,7 +86,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMSave.setText("Save");
         jMSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitActionPerformed(evt);
+                saveActionPerformed(evt);
             }
         });
         jMenu1.add(jMSave);
@@ -96,6 +101,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         jMExit.setText("Exit");
+        jMExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMExit);
 
         jMenuBar1.add(jMenu1);
@@ -110,13 +120,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem3.setText("Scan");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        jMScan.setText("Scan");
+        jMScan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                jMScanActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jMenu3.add(jMScan);
 
         jMenuBar1.add(jMenu3);
 
@@ -134,13 +144,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu5.setText("Help");
 
-        jMenuItem5.setText("About");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        jMAbout.setText("About");
+        jMAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                jMAboutActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem5);
+        jMenu5.add(jMAbout);
 
         jMenuBar1.add(jMenu5);
 
@@ -195,81 +205,22 @@ public class MainFrame extends javax.swing.JFrame {
         jfc.setFileFilter(fileFilter);
         //Handle open button action.
         int returnVal = jfc.showOpenDialog(MainFrame.this);
-//        int returnVal = OpenFile.showOpenDialog(MainFrame.this);
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-//            File file = OpenFile.getSelectedFile();
             File file = jfc.getSelectedFile();
             System.out.println("selected file " + file.getName());
-//            try {
-//                System.out.println("current directory : " + new File(".").getCanonicalPath());
-//                //     File input = new File(imageName);
-//                BufferedImage image = ImageIO.read(file);
-//                canvas1.getGraphics().drawImage(image, 0, 0, null);
-//                canvas4.getGraphics().drawImage(image, 0, 0, null);
-//            } catch (IOException ie) {
-//                System.out.println("Error:" + ie.getMessage());
-//            }
 
-            ImagePlus imp = IJ.openImage(file.getAbsolutePath());
-
-            dataStore.setIp(imp);
-            dataStore.setIp1(dataStore.getDupIP());
-            dataStore.setIp2(dataStore.getDupIP());
-            dataStore.setIp3(dataStore.getDupIP());
-            dataStore.setIp4(dataStore.getDupIP());
-
-            int height = dataStore.getDupIP().getBufferedImage().getHeight();
-            int width = dataStore.getDupIP().getBufferedImage().getWidth();
-            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 0, 0, null);
-            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 400, 300, null);
-
-
-//            canvas1.setSize(width, height);
-//            SwingUtilities.invokeLater(new Runnable() {
-//                @Override
-//                public void run() {
-//            canvas1.setSize(height, width);
-//            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 0, 0, null);
-//                    }
-//            });
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//            canvas1.setSize(width, height);
-//            canvas1.getGraphics().drawImage(dataStore.getIp1().getBufferedImage(), 0, 0, null);
-//            }
-//        });
-// 
-            dataStore.getIp4().unlock(); // unlock im to run other commands
-            IJ.run(dataStore.getIp4(), "8-bit", ""); // run “Invert” command on im
-//        IJ.run(im, "Analyze Particles...", "size=0.5-100 circularity=0.1-1.00 show=Outlines display"); 
-            dataStore.getIp4().lock(); // lock im again (to be safe)
-
-            //     dataStore.getIp4().getProcessor().rotate(90);
-//            Panel panel = null;
-/*
-            try {
-                panel = new ShowImage(file.getCanonicalPath());
-                panel.setSize(200, 200);
-            } catch (IOException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            this.getContentPane().add(panel);
-            this.setSize(500, 500);
-            this.repaint();
-             */
-            //This is where a real application would open the file.
-//            log.append("Opening: " + file.getName() + "." + newline);
+            imageFile = jfc.getSelectedFile();
         } else {
 //            log.append("Open command cancelled by user." + newline);
         }
 
     }//GEN-LAST:event_openActionPerformed
 
-    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_exitActionPerformed
+    }//GEN-LAST:event_saveActionPerformed
 
     private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
 //        Scan scan = new Scan();
@@ -280,30 +231,39 @@ public class MainFrame extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_jMenu3ActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-            RunProgram rp = new RunProgram();
-            rp.runProg();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void jMScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMScanActionPerformed
+        Scan scan = new Scan(dataStore.getConfig());
+        scan.run();
+
+
+    }//GEN-LAST:event_jMScanActionPerformed
 
     private void jMAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMAnalyzeActionPerformed
         System.out.println("analyze");        // TODO add your handling code here:    FindLastPictureFile flpf = new FindLastPictureFile();
-        FindLastPictureFile flpf = new FindLastPictureFile();
-        System.out.println("file name " + flpf.getLastFileName());
-        ImagePlus ip0 = IJ.openImage(flpf.getLastFileName());
-        ip0.show();
-
+        if (imageFile != null && imageFile.exists()) {
+            System.out.println("file name " + imageFile.getAbsolutePath());
+            AnalyzeScan analyzeScan = new AnalyzeScan(imageFile.getAbsolutePath(), dataStore.getConfig());
+            analyzeScan.run();
+        } else {
+            //custom title, error icon
+            JOptionPane.showMessageDialog(this, "No image file specified", "File not found", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jMAnalyzeActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-JOptionPane.showMessageDialog(this,
-    "Eggs are not supposed to be green.\ntest test test\nmore",
-    "Durham wheat chalk analyzer",
-    JOptionPane.PLAIN_MESSAGE);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    private void jMAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMAboutActionPerformed
+        JOptionPane.showMessageDialog(this,
+                "Eggs are not supposed to be green.\ntest test test\nmore",
+                "Durham wheat chalk analyzer",
+                JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_jMAboutActionPerformed
 
     private void jMConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMConfigActionPerformed
-        new ConfigDialog(this, rootPaneCheckingEnabled).setVisible(true);
+        new ConfigDialog(this, dataStore).setVisible(true);
     }//GEN-LAST:event_jMConfigActionPerformed
+
+    private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,19 +310,19 @@ JOptionPane.showMessageDialog(this,
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFileChooser OpenFile;
     private java.awt.Canvas canvas1;
+    private javax.swing.JMenuItem jMAbout;
     private javax.swing.JMenuItem jMAnalyze;
     private javax.swing.JMenuItem jMConfig;
     private javax.swing.JMenuItem jMExit;
     private javax.swing.JMenuItem jMOpen;
     private javax.swing.JMenuItem jMSave;
+    private javax.swing.JMenuItem jMScan;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 

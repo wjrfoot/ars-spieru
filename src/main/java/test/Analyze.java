@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gov.usda.ars.spieru.chalk.controller;
+package test;
 
 import gov.usda.ars.spieru.chalk.util.FindLastPictureFile;
 import ij.IJ;
@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 /**
  *
+ * @deprecated 
  * @author wjrfo
  */
 public class Analyze {
