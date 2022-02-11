@@ -7,18 +7,11 @@ package gov.usda.ars.spieru.chalk.view;
 import gov.usda.ars.spieru.chalk.controller.AnalyzeScan;
 import gov.usda.ars.spieru.chalk.controller.Scan;
 import gov.usda.ars.spieru.chalk.model.Config;
-import gov.usda.ars.spieru.chalk.util.RunProgram;
 import gov.usda.ars.spieru.chalk.model.DataStore;
-import gov.usda.ars.spieru.chalk.util.FindLastPictureFile;
-
-import ij.IJ;
-import ij.ImagePlus;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.IIOImage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -300,10 +293,8 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true);
         });
     }
 

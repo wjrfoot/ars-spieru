@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package test;
+package gov.usda.ars.spieru.chalk.view;
 
 /**
  *
@@ -22,17 +22,17 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.util.List;
 
-public class BarChartExample extends JFrame {
+public class ResultsBarChart extends JFrame {
 
     List<SubImagePlus> subImagePlusList;
 
-    public BarChartExample(List<SubImagePlus> subImagePlusList) {
+    public ResultsBarChart(List<SubImagePlus> subImagePlusList) {
 
         this.subImagePlusList = subImagePlusList;
         initUI();
     }
 
-    public BarChartExample() {
+    public ResultsBarChart() {
 
         this(null);
     }
@@ -103,7 +103,7 @@ public class BarChartExample extends JFrame {
 
         EventQueue.invokeLater(() -> {
 
-            BarChartExample ex = new BarChartExample();
+            ResultsBarChart ex = new ResultsBarChart();
             ex.setVisible(true);
         });
     }

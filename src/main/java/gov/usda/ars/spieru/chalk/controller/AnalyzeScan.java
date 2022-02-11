@@ -28,7 +28,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.text.DecimalFormat;
-import test.BarChartExample;
+import gov.usda.ars.spieru.chalk.view.ResultsBarChart;
 
 /**
  *
@@ -61,8 +61,8 @@ public class AnalyzeScan {
      * uses the last created file in picture directory
      */
     public AnalyzeScan() {
-            File dirF = new File(System.getProperty("user.dir"), "data");
-            dirF = new File(dirF,"img042.jpg");
+        File dirF = new File(System.getProperty("user.dir"), "data");
+        dirF = new File(dirF, "img042.jpg");
         setFileName(dirF.getAbsolutePath());
         setConfig(new Config());
 //        setFileName(FindLastPictureFile.getLastFileName());
@@ -76,7 +76,7 @@ public class AnalyzeScan {
     public AnalyzeScan(String fileName, Config config) {
         setFileName(fileName);
         setConfig(config);
-        
+
     }
 
     private class MyMouseListner implements MouseListener {
@@ -85,17 +85,17 @@ public class AnalyzeScan {
         private int canvasWidth;
         private int imageHeight;
         private int imageWidth;
-        
+
         public MyMouseListner(ImagePlus ip) {
             canvasHeight = ip.getCanvas().getHeight();
             canvasWidth = ip.getCanvas().getWidth();
             imageHeight = ip.getHeight();
             imageWidth = ip.getWidth();
         }
-        
+
         @Override
         public void mouseClicked(MouseEvent arg0) {
-            
+
             int x = arg0.getX();
             int y = arg0.getY();
             System.out.println("mouseClicked " + arg0.getY() + " " + arg0.getX());
@@ -105,16 +105,16 @@ public class AnalyzeScan {
             int y1 = (y * imageHeight) / canvasHeight;
             System.out.println("scaled H " + y1 + "  W  " + x1);
             Point point = new Point(x1, y1);
-            
+
             for (SubImagePlus sip : subImagePlusList) {
                 Rectangle rect = sip.getBoundingBox();
                 System.out.println(rect.toString());
 //                processResults(sip, null);
-                    if (rect.contains(point)) {
-                        processResults(sip, null);
-                        System.out.println("found");
-                    }
+                if (rect.contains(point)) {
+                    processResults(sip, null);
+                    System.out.println("found");
                 }
+            }
         }
 
         @Override
@@ -136,8 +136,9 @@ public class AnalyzeScan {
         public void mouseExited(MouseEvent arg0) {
             System.out.println("mouseExited");
         }
-        
+
     }
+
     /**
      * entry point to run analysis
      */
@@ -149,7 +150,7 @@ public class AnalyzeScan {
         ip1.getProcessor().flipHorizontal();
         ip1.show();
         ip1.getCanvas().addMouseListener(new MyMouseListner(ip1));
-        
+
         System.out.println(ip1.getHeight() + " " + ip1.getCanvas().getHeight());
 
         ImagePlus ip2 = analyze(ip1);
@@ -170,7 +171,7 @@ public class AnalyzeScan {
         IJ.run(ip, "Set Measurements...", getConfig().getMeasureParamsBase());
         IJ.run(ip, "8-bit", "");
         ip.getProcessor().setAutoThreshold("Default Dark");
-        ip.getProcessor().setThreshold(getConfig().getLowThresholdKernel(hiTH), 
+        ip.getProcessor().setThreshold(getConfig().getLowThresholdKernel(hiTH),
                 getConfig().getHiThresholdKernel(hiTH), 0);
         ResultsTable.getResultsTable().reset();
         IJ.run(ip, "Analyze Particles...", getConfig().getAnalyzeBase());
@@ -225,14 +226,13 @@ public class AnalyzeScan {
         } finally {
             pw.close();
         }
-        
-                EventQueue.invokeLater(() -> {
 
-            BarChartExample ex = new BarChartExample(subImagePlusList);
+        EventQueue.invokeLater(() -> {
+
+            ResultsBarChart ex = new ResultsBarChart(subImagePlusList);
             ex.setVisible(true);
         });
 
-        
     }
 
     /**
@@ -244,9 +244,9 @@ public class AnalyzeScan {
      */
     private void processResults(SubImagePlus sip, PrintWriter pw) {
         if (pw != null) {
-        pw.println(sip.getKernelResults().split("\\t")[1] + "  ---  " + sip.getChalkResults().split("\\t")[1]);
+            pw.println(sip.getKernelResults().split("\\t")[1] + "  ---  " + sip.getChalkResults().split("\\t")[1]);
         }
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             SubImagePlusFrame sipf = new SubImagePlusFrame();
@@ -367,7 +367,7 @@ public class AnalyzeScan {
         ip.getProcessor().setAutoThreshold("Default Dark");
 
 //	setThreshold(lowTH, 255);
-        ip.getProcessor().setThreshold(getConfig().getLowThresholdKernel(hiTH), 
+        ip.getProcessor().setThreshold(getConfig().getLowThresholdKernel(hiTH),
                 getConfig().getHiThresholdKernel(hiTH), 0);
 
 //	// analyze particles
@@ -492,7 +492,6 @@ public class AnalyzeScan {
     public final void setFileName(String fileName) {
         this.fileName = fileName;
     }
-//</editor-fold>
 
     /**
      * @param config the config to set
@@ -508,4 +507,5 @@ public class AnalyzeScan {
         return config;
     }
 
+//</editor-fold>
 }

@@ -4,7 +4,6 @@
  */
 package gov.usda.ars.spieru.chalk.util;
 
-import static gov.usda.ars.spieru.chalk.util.RunProgram.getProgName;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;

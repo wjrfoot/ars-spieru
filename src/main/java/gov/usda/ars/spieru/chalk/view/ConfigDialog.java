@@ -44,14 +44,6 @@ public class ConfigDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jTPMain = new javax.swing.JTabbedPane();
-        jPanel7 = new javax.swing.JPanel();
-        jTFScanDirectory = new javax.swing.JTextField();
-        JBScanDirectoryFileChooser = new javax.swing.JButton();
-        jLabel11 = new javax.swing.JLabel();
-        jCBLightSource = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jCBDPI = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFBaseMeasurement = new javax.swing.JTextField();
@@ -78,12 +70,168 @@ public class ConfigDialog extends javax.swing.JDialog {
         jTFChalkMeasurement = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jTFScanDirectory = new javax.swing.JTextField();
+        JBScanDirectoryFileChooser = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jCBLightSource = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jCBDPI = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jBLoad = new javax.swing.JButton();
         jBSave = new javax.swing.JButton();
         jBExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setLabelFor(jTFBaseMeasurement);
+        jLabel1.setText("Measurement ");
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        jTFBaseMeasurement.setText("jTextField1");
+        jTFBaseMeasurement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFBaseMeasurementActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFBaseMeasurement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 620, -1));
+
+        jLabel2.setLabelFor(jTFBaseAnalyzeParticles);
+        jLabel2.setText("Analyze Patricles");
+        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 10));
+
+        jTFBaseAnalyzeParticles.setText("jTextField2");
+        jTFBaseAnalyzeParticles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFBaseAnalyzeParticlesActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFBaseAnalyzeParticles, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 610, -1));
+
+        jLabel5.setText("Threshold values");
+        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
+
+        jLabel6.setLabelFor(jTFKernelThresholdValueLo);
+        jLabel6.setText("Low:");
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
+
+        jTFKernelThresholdValueLo.setColumns(5);
+        jTFKernelThresholdValueLo.setText("0");
+        jTFKernelThresholdValueLo.setToolTipText("");
+        jTFKernelThresholdValueLo.setMinimumSize(new java.awt.Dimension(60, 20));
+        jTFKernelThresholdValueLo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFKernelThresholdValueLoActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFKernelThresholdValueLo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, -1));
+
+        jLabel7.setLabelFor(jTFKernelThresholdValueHi);
+        jLabel7.setText("High:");
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
+
+        jTFKernelThresholdValueHi.setColumns(5);
+        jTFKernelThresholdValueHi.setText("255");
+        jTFKernelThresholdValueHi.setMinimumSize(new java.awt.Dimension(60, 20));
+        jTFKernelThresholdValueHi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFKernelThresholdValueHiActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFKernelThresholdValueHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
+
+        jLabel3.setLabelFor(jTFKernelAnalyzeParticles);
+        jLabel3.setText("Analyze Patricles");
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
+
+        jTFKernelMeasurement.setText("jTextField2");
+        jTFKernelMeasurement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFKernelMeasurementActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFKernelMeasurement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 620, -1));
+
+        jLabel12.setText("Kernel Step");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        jLabel8.setText("Threshold values");
+        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
+
+        jLabel9.setLabelFor(jTFChalkThresholdValueLo);
+        jLabel9.setText("Low:");
+        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
+
+        jTFChalkThresholdValueLo.setColumns(5);
+        jTFChalkThresholdValueLo.setText("0");
+        jTFChalkThresholdValueLo.setMinimumSize(new java.awt.Dimension(60, 20));
+        jTFChalkThresholdValueLo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFChalkThresholdValueLoActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFChalkThresholdValueLo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, -1, -1));
+
+        jLabel10.setLabelFor(jTFChalkThresholdValueHi);
+        jLabel10.setText("High:");
+        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, -1, -1));
+
+        jTFChalkThresholdValueHi.setColumns(5);
+        jTFChalkThresholdValueHi.setText("255");
+        jTFChalkThresholdValueHi.setMinimumSize(new java.awt.Dimension(60, 20));
+        jTFChalkThresholdValueHi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFChalkThresholdValueHiActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFChalkThresholdValueHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
+
+        jLabel4.setLabelFor(jTFChalkAnalyzeParticles);
+        jLabel4.setText("Analyze Patricles");
+        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+
+        jTFChalkAnalyzeParticles.setText("jTextField2");
+        jTFChalkAnalyzeParticles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFChalkAnalyzeParticlesActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFChalkAnalyzeParticles, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 610, -1));
+
+        jLabel15.setLabelFor(jTFKernelMeasurement);
+        jLabel15.setText("Measurement");
+        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+
+        jTFKernelAnalyzeParticles.setText("jTextField2");
+        jTFKernelAnalyzeParticles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFKernelAnalyzeParticlesActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFKernelAnalyzeParticles, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 600, -1));
+
+        jLabel16.setLabelFor(jTFChalkMeasurement);
+        jLabel16.setText("Measurement");
+        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+
+        jTFChalkMeasurement.setText("jTextField2");
+        jTFChalkMeasurement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFChalkMeasurementActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jTFChalkMeasurement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 620, -1));
+
+        jLabel17.setText("Base");
+        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jLabel18.setText("Chalk Step");
+        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
+
+        jTPMain.addTab("Analysis", jPanel6);
 
         jTFScanDirectory.setText("jTextField1");
 
@@ -157,144 +305,6 @@ public class ConfigDialog extends javax.swing.JDialog {
         );
 
         jTPMain.addTab("Scanner", jPanel7);
-
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("Measurement ");
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
-
-        jTFBaseMeasurement.setText("jTextField1");
-        jTFBaseMeasurement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFBaseMeasurementActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFBaseMeasurement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 620, -1));
-
-        jLabel2.setText("Analyze Patricles");
-        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 90, 10));
-
-        jTFBaseAnalyzeParticles.setText("jTextField2");
-        jTFBaseAnalyzeParticles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFBaseAnalyzeParticlesActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFBaseAnalyzeParticles, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 610, -1));
-
-        jLabel5.setText("Threshold values");
-        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, -1));
-
-        jLabel6.setText("Low:");
-        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
-
-        jTFKernelThresholdValueLo.setColumns(5);
-        jTFKernelThresholdValueLo.setText("0");
-        jTFKernelThresholdValueLo.setToolTipText("");
-        jTFKernelThresholdValueLo.setMinimumSize(new java.awt.Dimension(60, 20));
-        jTFKernelThresholdValueLo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFKernelThresholdValueLoActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFKernelThresholdValueLo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, -1));
-
-        jLabel7.setText("High:");
-        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 110, -1, -1));
-
-        jTFKernelThresholdValueHi.setColumns(5);
-        jTFKernelThresholdValueHi.setText("255");
-        jTFKernelThresholdValueHi.setMinimumSize(new java.awt.Dimension(60, 20));
-        jTFKernelThresholdValueHi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFKernelThresholdValueHiActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFKernelThresholdValueHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
-
-        jLabel3.setText("Analyze Patricles");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
-
-        jTFKernelMeasurement.setText("jTextField2");
-        jTFKernelMeasurement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFKernelMeasurementActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFKernelMeasurement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 620, -1));
-
-        jLabel12.setText("Kernel Step");
-        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
-
-        jLabel8.setText("Threshold values");
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, -1));
-
-        jLabel9.setText("Low:");
-        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
-
-        jTFChalkThresholdValueLo.setColumns(5);
-        jTFChalkThresholdValueLo.setText("0");
-        jTFChalkThresholdValueLo.setMinimumSize(new java.awt.Dimension(60, 20));
-        jTFChalkThresholdValueLo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFChalkThresholdValueLoActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFChalkThresholdValueLo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, -1, -1));
-
-        jLabel10.setText("High:");
-        jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, -1, -1));
-
-        jTFChalkThresholdValueHi.setColumns(5);
-        jTFChalkThresholdValueHi.setText("255");
-        jTFChalkThresholdValueHi.setMinimumSize(new java.awt.Dimension(60, 20));
-        jTFChalkThresholdValueHi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFChalkThresholdValueHiActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFChalkThresholdValueHi, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, -1));
-
-        jLabel4.setText("Analyze Patricles");
-        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
-
-        jTFChalkAnalyzeParticles.setText("jTextField2");
-        jTFChalkAnalyzeParticles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFChalkAnalyzeParticlesActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFChalkAnalyzeParticles, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 610, -1));
-
-        jLabel15.setText("Measurement");
-        jPanel6.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
-
-        jTFKernelAnalyzeParticles.setText("jTextField2");
-        jTFKernelAnalyzeParticles.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFKernelAnalyzeParticlesActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFKernelAnalyzeParticles, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 600, -1));
-
-        jLabel16.setText("Measurement");
-        jPanel6.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
-
-        jTFChalkMeasurement.setText("jTextField2");
-        jTFChalkMeasurement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFChalkMeasurementActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jTFChalkMeasurement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 620, -1));
-
-        jLabel17.setText("Base");
-        jPanel6.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        jLabel18.setText("Chalk Step");
-        jPanel6.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, -1, -1));
-
-        jTPMain.addTab("Analysis", jPanel6);
 
         jBLoad.setText("Load");
         jBLoad.addActionListener(new java.awt.event.ActionListener() {
