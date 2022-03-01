@@ -10,7 +10,7 @@ import ij.ImageStack;
 import ij.io.Opener;
 import ij.process.ImageProcessor;
 import ij.process.StackProcessor;
-import org.apache.log4j.Logger;
+// import org.apache.log4j.Logger;
 
 
 
@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
  */
 public class Thumbnail {
 
-    private final static Logger logger = Logger.getLogger(Thumbnail.class.getName());
+    // private final static Logger logger = Logger.getLogger(Thumbnail.class.getName());
       private static final String inFilName = "./data/test.jpg";
       private static final String outFileName = "./data/testThumbNail.jpg";
   
@@ -86,21 +86,21 @@ public class Thumbnail {
 
             }
 
-            logger.debug(imp.getWidth());
+            // logger.debug(imp.getWidth());
 
-            logger.debug(imp.getHeight());
+            // logger.debug(imp.getHeight());
 
-            logger.debug("cropWidth " + cropWidth);
+            // logger.debug("cropWidth " + cropWidth);
 
-            logger.debug("cropHeight" + cropHeight);
+            // logger.debug("cropHeight" + cropHeight);
 
             ImageStack croppedStack = sp.crop(x, y, cropWidth, cropHeight);
 
             imp.setStack(null, croppedStack);
 
-            logger.debug(imp.getWidth());
+            // logger.debug(imp.getWidth());
 
-            logger.debug(imp.getHeight());
+            // logger.debug(imp.getHeight());
 
             sp = new StackProcessor(imp.getStack(), imp.getProcessor());
 
@@ -115,7 +115,7 @@ public class Thumbnail {
 
         } catch (Exception e) {
 
-            logger.error("Error while resizing Image.");
+            // logger.error("Error while resizing Image.");
 
             e.printStackTrace();
 
