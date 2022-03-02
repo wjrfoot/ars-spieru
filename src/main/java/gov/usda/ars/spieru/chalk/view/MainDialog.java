@@ -22,6 +22,7 @@ public class MainDialog extends javax.swing.JDialog {
      */
     public MainDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+//        URL imageURL = getClass().getClassLoader().getResource("background.png");
         URL imageURL = getClass().getClassLoader().getResource("wheat.jpg");
         backgroundIcon = new ImageIcon(imageURL);
         initComponents();
@@ -57,23 +58,48 @@ public class MainDialog extends javax.swing.JDialog {
         }
 
         ;
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jBLoadAnalyze = new javax.swing.JButton();
+        jBScanAnalyze = new javax.swing.JButton();
+        jBConfigure = new javax.swing.JButton();
+        jBAbout = new javax.swing.JButton();
+        jBExit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jButton1.setText("jButton1");
+        jBLoadAnalyze.setText("Load/Analyze");
+        jBLoadAnalyze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBLoadAnalyzeActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton1");
+        jBScanAnalyze.setText("Scan/Analyze");
+        jBScanAnalyze.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBScanAnalyzeActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton1");
+        jBConfigure.setText("Configure");
+        jBConfigure.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBConfigureActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton1");
+        jBAbout.setText("About");
+        jBAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAboutActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("jButton1");
+        jBExit.setText("Exit");
+        jBExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBExitActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,26 +108,26 @@ public class MainDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
-                .addContainerGap(162, Short.MAX_VALUE))
+                    .addComponent(jBExit)
+                    .addComponent(jBAbout)
+                    .addComponent(jBConfigure)
+                    .addComponent(jBScanAnalyze)
+                    .addComponent(jBLoadAnalyze))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addGap(16, 16, 16)
+                .addComponent(jBLoadAnalyze)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5)
+                .addComponent(jBScanAnalyze)
+                .addGap(12, 12, 12)
+                .addComponent(jBConfigure)
+                .addGap(13, 13, 13)
+                .addComponent(jBAbout)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBExit)
                 .addContainerGap())
         );
 
@@ -109,9 +135,7 @@ public class MainDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 137, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,6 +146,30 @@ public class MainDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBLoadAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLoadAnalyzeActionPerformed
+        // TODO add your handling code here:
+        System.out.println("load analyze");
+    }//GEN-LAST:event_jBLoadAnalyzeActionPerformed
+
+    private void jBScanAnalyzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBScanAnalyzeActionPerformed
+        // TODO add your handling code here:
+        System.out.println("scan analyze");
+    }//GEN-LAST:event_jBScanAnalyzeActionPerformed
+
+    private void jBConfigureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfigureActionPerformed
+        // TODO add your handling code here:
+        System.out.println("configure");
+    }//GEN-LAST:event_jBConfigureActionPerformed
+
+    private void jBAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAboutActionPerformed
+        // TODO add your handling code here:
+        System.out.println("about");
+    }//GEN-LAST:event_jBAboutActionPerformed
+
+    private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jBExitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,11 +215,11 @@ public class MainDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jBAbout;
+    private javax.swing.JButton jBConfigure;
+    private javax.swing.JButton jBExit;
+    private javax.swing.JButton jBLoadAnalyze;
+    private javax.swing.JButton jBScanAnalyze;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
