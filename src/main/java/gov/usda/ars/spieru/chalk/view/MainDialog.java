@@ -6,8 +6,12 @@ package gov.usda.ars.spieru.chalk.view;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.File;
 import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -165,6 +169,7 @@ public class MainDialog extends javax.swing.JDialog {
     private void jBAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAboutActionPerformed
         // TODO add your handling code here:
         System.out.println("about");
+        new About(null, true);
     }//GEN-LAST:event_jBAboutActionPerformed
 
     private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed
