@@ -38,21 +38,21 @@
             <artifactId>morena6</artifactId>
             <version>6</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/morena.jar</systemPath>
+            <systemPath>${basedir}/resources/morena.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>morena</groupId>
             <artifactId>morena6-license</artifactId>
             <version>6</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/morena_license.jar</systemPath>
+            <systemPath>${basedir}/resources/morena_license.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>morena</groupId>
             <artifactId>morena6-windows</artifactId>
             <version>6</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/morena_windows.jar</systemPath>
+            <systemPath>${basedir}/resources/morena_windows.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.netbeans.external</groupId>

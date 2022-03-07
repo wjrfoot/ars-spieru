@@ -37,20 +37,5 @@ public class Util {
         return filNam;
     }
 
-    private static String defProgName = "C:\\Windows\\twain_32\\escndv\\escndv.exe";
-
-    public static void runProgram() {
-        runProgram(defProgName);
-    }
-
-    public static void runProgram(String progName) {
-        Runtime rt = Runtime.getRuntime();
-        try {
-            Process p = rt.exec(progName);
-            int rtn = p.waitFor();
-        } catch (IOException | InterruptedException ex) {
-            ex.printStackTrace();
-        }
-    }
 
 }
