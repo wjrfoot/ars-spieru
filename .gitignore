@@ -25,3 +25,6 @@ replay_pid*
 
 
 /data/
+
+# directory of compiled files/resources
+/target/
