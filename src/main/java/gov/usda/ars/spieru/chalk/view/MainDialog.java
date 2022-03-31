@@ -169,7 +169,7 @@ public class MainDialog extends javax.swing.JDialog {
     private void jBAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAboutActionPerformed
         // TODO add your handling code here:
         System.out.println("about");
-        new About(null, true);
+        new About(null, true).setVisible(true);
     }//GEN-LAST:event_jBAboutActionPerformed
 
     private void jBExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExitActionPerformed

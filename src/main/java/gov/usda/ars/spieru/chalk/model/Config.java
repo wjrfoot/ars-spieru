@@ -76,7 +76,6 @@ public class Config {
      * makes directory in AppData/Local for this application
      */
     private void makeLocalDir() {
-        String dirS = System.getProperty("user.home");
         File localDir = new File(System.getProperty("user.home"), "AppData\\Local\\ARS-SPIERU");
         if (!localDir.exists()) {
             localDir.mkdir();

@@ -1,22 +1,15 @@
 package gov.usda.ars.spieru.chalk.controller;
 
-import test.*;
 import SK.gnome.morena.*;
 import SK.gnome.twain.*;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.ImageConsumer;
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import gov.usda.ars.spieru.chalk.model.Config;
 import javax.swing.JOptionPane;
 
