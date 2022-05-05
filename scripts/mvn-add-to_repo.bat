@@ -1,0 +1,1 @@
+call mvn install:install-file -Dfile="C:\Users\wjrfo\Documents\GitHub\ImageJ\target\ij-1.x-SNAPSHOT.jar" -DgroupId="gov.nih.imagej" -DartifactId="imagej" -Dversion="1.53" -Dpackaging="jar"

@@ -1,7 +1,9 @@
 gov\usda\ars\spieru\chalk\view\ConfigDialog$3.class
 gov\usda\ars\spieru\chalk\view\MainFrame$4.class
+gov\usda\ars\spieru\flour\TestColorThreshold2.class
 gov\usda\ars\spieru\chalk\view\MainFrame.class
 gov\usda\ars\spieru\chalk\view\MainDialog$4.class
+gov\usda\ars\spieru\flour\MainDialog$3.class
 gov\usda\ars\spieru\chalk\view\SubImagePlusFrame.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$17$1.class
 test\My_Inverter_A.class
@@ -26,6 +28,7 @@ gov\usda\ars\spieru\chalk\view\MainDialog$1.class
 gov\usda\ars\spieru\chalk\view\About$2.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$14.class
 gov\usda\ars\spieru\chalk\view\MainFrame$2.class
+gov\usda\ars\spieru\flour\Analyze.class
 test\Metadata.class
 gov\usda\ars\spieru\chalk\view\MainFrame$5.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$11.class
@@ -41,6 +44,7 @@ gov\usda\ars\spieru\chalk\view\MainDialog$6.class
 test\Analyze.class
 gov\usda\ars\spieru\chalk\view\ThresholdInputVerifer.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$8.class
+gov\usda\ars\spieru\flour\ColorThresholder2.class
 test\Thumbnail.class
 gov\usda\ars\spieru\chalk\view\About$1.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$13.class
@@ -60,12 +64,14 @@ gov\usda\ars\spieru\chalk\view\MainFrame$9.class
 gov\usda\ars\spieru\chalk\view\MainDialog$5.class
 gov\usda\ars\spieru\chalk\view\ShowImage.class
 test\ImageBackground$1.class
+gov\usda\ars\spieru\flour\MainDialog$2.class
 gov\usda\ars\spieru\chalk\util\FindLastPictureFile.class
 gov\usda\ars\spieru\chalk\model\Config.class
 test\ShowImage.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$12.class
 gov\usda\ars\spieru\chalk\view\MainDialog$3.class
 gov\usda\ars\spieru\chalk\util\InitProperties.class
+gov\usda\ars\spieru\flour\ColorThresholder2$BandPlot.class
 gov\usda\ars\spieru\chalk\model\ImageRecord.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$4.class
 gov\usda\ars\spieru\chalk\view\About.class
@@ -76,5 +82,7 @@ gov\usda\ars\spieru\chalk\view\MainFrame$7.class
 test\ImageMeta.class
 gov\usda\ars\spieru\chalk\util\RunEpson.class
 gov\usda\ars\spieru\chalk\view\SubImagePlusFrame$2.class
+gov\usda\ars\spieru\flour\MainDialog$1.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$16.class
 gov\usda\ars\spieru\chalk\view\ConfigDialog$1.class
+gov\usda\ars\spieru\flour\MainDialog.class

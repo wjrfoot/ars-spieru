@@ -41,7 +41,7 @@ public class Scan {
                 // must set X & Y; generic setResolution doesn't appear to work
                 source.setXResolution(300.0);
                 source.setYResolution(300.0);
-                source.setColorMode();
+//                source.setColorMode();
                 // set scan area -- must use pixels; inches don't appear to work
                 source.setUnits(TwainConstants.TWUN_PIXELS);
                 source.setFrame(00, 1500, 1200, 3000);
@@ -51,13 +51,13 @@ public class Scan {
                 source.setLightSource(1);
                 double temp[] = source.getSupportedThreshold();
                 double[] test2 = source.getSupportedExposureTime();
-                source.setThreshold(200.0);
+//                source.setThreshold(200.0);
                 double [] tim = source.getSupportedExposureTime();
 //                source.setBrightness(200.0);
 //                source.setContrast(100.0);
 //                source.setGamma(1.2);
 //                source.setBehaviorMask(40);
-                source.setAutoBright(false);
+//                source.setAutoBright(false);
 //                source.getsup
                 
 //                double[] contrast = source.getSupportedContrast();
@@ -86,6 +86,7 @@ public class Scan {
                 bufferedImage.createGraphics().drawImage(image, 0, 0, null);
                 String debugFileName = System.getProperty("user.home") + "\\AppData\\Local\\ARS-SPIERU\\debug.png";
                 File debugFile = new File(debugFileName);
+                System.out.println("Output file name: " + debugFileName);
                 ImageIO.write(bufferedImage, "png", debugFile);
                 bufferedImage = invert(bufferedImage);
                 File tempFile = new File(fileName);

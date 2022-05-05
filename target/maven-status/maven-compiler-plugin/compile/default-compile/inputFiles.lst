@@ -2,11 +2,14 @@ C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\test\Test1.ja
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\util\Util.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\model\DataStore.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\model\ImageRecord.java
+C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\flour\MainDialog.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\view\About.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\test\FindLastPictureFile.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\test\ImageBackground.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\util\FindLastPictureFile.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\view\SubImagePlusFrame.java
+C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\flour\Analyze.java
+C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\flour\TestColorThreshold2.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\test\Thumbnail.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\controller\Scan.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\view\ShowImage.java
@@ -21,6 +24,7 @@ C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\util\InitProperties.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\view\MainDialog.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\chalk\view\ConfigDialog.java
+C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\gov\usda\ars\spieru\flour\ColorThresholder2.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\test\DisplayUserDir.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\test\RunCommand.java
 C:\Users\wjrfo\Documents\NetBeansProjects\ars-spieru\src\main\java\test\Scan.java

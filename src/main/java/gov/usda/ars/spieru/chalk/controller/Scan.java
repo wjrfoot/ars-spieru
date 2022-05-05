@@ -29,6 +29,7 @@ public class Scan {
             source.setAutoFeed(true);
             source.setTransferCount(5);
             source.setVisible(false);
+            source.setColorMode();
             int[] i1 = source.getSupportedLightSource();
             int[] i2 = source.getSupportedLightPath();
             System.out.println("i1 " + i1.toString() + " i2 " + i2.toString());
