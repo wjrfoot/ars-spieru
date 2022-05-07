@@ -33,6 +33,7 @@ public class Smut {
         ImagePlus ip0 = IJ.openImage(fileName);
         ip0.show();
         ImagePlus ip1 = ip0.duplicate();
+
         ip1.getProcessor().smooth();
         int[] pixels = (int[]) ip1.getProcessor().getPixels();
 
@@ -71,7 +72,7 @@ public class Smut {
         int pixels[] = (int[]) rtnIP.getProcessor().getPixels();
 
         for (int idx = 0; idx < pixels.length; idx++) {
-            pixels[idx] = mask[idx] ? pixels[idx] : falsePixel;
+            pixels[idx] = mask[idx] ? falsePixel : pixels[idx];
             if (mask[idx]) {
                 trueCnt++;
             } else {

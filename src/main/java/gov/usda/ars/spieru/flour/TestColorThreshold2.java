@@ -22,7 +22,6 @@ import java.awt.Color;
 public class TestColorThreshold2 {
 
 //<editor-fold defaultstate="collapsed" desc="getters/setters">
-    
     /**
      * @return the minHue
      */
@@ -111,7 +110,7 @@ public class TestColorThreshold2 {
     private static final int HSB = 0, RGB = 1, LAB = 2, YUV = 3;
     private static final String[] colorSpaces = {"HSB", "RGB", "Lab", "YUV"};
     private boolean flag = false;
-    private int colorSpace = YUV;
+    private int colorSpace = RGB;
     private static final int RED = 0, WHITE = 1, BLACK = 2, BLACK_AND_WHITE = 3;
     private static final String[] modes = {"Red", "White", "Black", "B&W"};
     int mode = WHITE;
@@ -129,12 +128,25 @@ public class TestColorThreshold2 {
 
         TestColorThreshold2 tc2 = new TestColorThreshold2();
         tc2.setMinHue(0);
-        tc2.setMaxHue(211);
-        tc2.setMinSat(118);
-        tc2.setMaxSat(255);
+        tc2.setMaxHue(113);
+        tc2.setMinSat(0);
+        tc2.setMaxSat(113);
         tc2.setMinBri(0);
-        tc2.setMaxBri(255);
-  
+        tc2.setMaxBri(113);
+//        tc2.setMinHue(113);
+//        tc2.setMaxHue(255);
+//        tc2.setMinSat(113);
+//        tc2.setMaxSat(255);
+//        tc2.setMinBri(113);
+//        tc2.setMaxBri(255);
+        tc2.setColorSpace(YUV);
+//        tc2.setMinHue(0);
+//        tc2.setMaxHue(211);
+//        tc2.setMinSat(118);
+//        tc2.setMaxSat(255);
+//        tc2.setMinBri(0);
+//        tc2.setMaxBri(255);
+
         String fileName = "C:\\Users\\wjrfo\\Documents\\2018 June flour pics\\testPanel.png";
 //        String fileName = "C:\\Users\\wjrfo\\Documents\\2018 June flour pics\\FLOUR\\sm-5008_1200.bmp";
         System.out.println("test " + fileName);
@@ -142,20 +154,24 @@ public class TestColorThreshold2 {
         ip0.show();
         ImagePlus ip1 = ip0.duplicate();
         ip1.getProcessor().smooth();
-        
+
+//        ImagePlus ip8bit = ip0.duplicate();
+//        IJ.run(ip8bit, "8-bit", "");
+//        ip8bit.show();
+
         tc2.setIP(ip1);
-        
+
         tc2.apply(ip1);
-  }
+    }
 
     public TestColorThreshold2() {
-  //        ip0.show();
+        //        ip0.show();
 //        String testParams = "Y=0-211 U=118-255 V=0-255 YUV White dark";
 //        ip1.getProcessor().autoThreshold();
 //        ColorThresholder2 ct2 = new ColorThresholder2(ip1, testParams);
 //        ip1.show();
     }
-    
+
     void setIP(ImagePlus ip1) {
         ColorProcessor cp = (ColorProcessor) ip1.getProcessor();
         ImageStack stack = cp.getHSBStack();
@@ -174,13 +190,13 @@ public class TestColorThreshold2 {
         sSource = new byte[numPixels];
         bSource = new byte[numPixels];
 
-        if (colorSpace == RGB) {
+        if (getColorSpace() == RGB) {
             cp.getRGB(hSource, sSource, bSource);
-        } else if (colorSpace == HSB) {
+        } else if (getColorSpace() == HSB) {
             cp.getHSB(hSource, sSource, bSource);
-        } else if (colorSpace == LAB) {
+        } else if (getColorSpace() == LAB) {
             getLab(cp, hSource, sSource, bSource);
-        } else if (colorSpace == YUV) {
+        } else if (getColorSpace() == YUV) {
             getYUV(cp, hSource, sSource, bSource);
         }
 
@@ -299,13 +315,11 @@ public class TestColorThreshold2 {
 //            return;
 //        }
 
-	
-			ImageProcessor fillMaskIP = new ByteProcessor(imp.getWidth(), imp.getHeight());
-			imp.setProperty("Mask", fillMaskIP);
-
+        ImageProcessor fillMaskIP = new ByteProcessor(imp.getWidth(), imp.getHeight());
+        imp.setProperty("Mask", fillMaskIP);
 
 //        byte[] fillMask = new byte[imp.getWidth() * imp.getHeight()];
-       byte[] fillMask = (byte[]) fillMaskIP.getPixels();
+        byte[] fillMask = (byte[]) fillMaskIP.getPixels();
         byte fill = (byte) 255;
         byte keep = (byte) 0;
         int numPixels = fillMask.length;
@@ -419,12 +433,11 @@ public class TestColorThreshold2 {
             ip.setColor(thresholdColor());
             ip.fill(fillMaskIP);
         }
-        
+
         imp.setTitle("applied");
         imp.show("apply !!!");
     }
 
-    
 //    boolean setup(ImagePlus imp) {
 //		if (IJ.debugMode) IJ.log("ColorThresholder.setup");
 //		ImageProcessor ip;
@@ -505,4 +518,17 @@ public class TestColorThreshold2 {
 //		return ip!=null;
 //	}
 
+    /**
+     * @return the colorSpace
+     */
+    public int getColorSpace() {
+        return colorSpace;
+    }
+
+    /**
+     * @param colorSpace the colorSpace to set
+     */
+    public void setColorSpace(int colorSpace) {
+        this.colorSpace = colorSpace;
+    }
 }
