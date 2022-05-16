@@ -176,7 +176,7 @@ public class AnalyzeScan {
         ResultsTable.getResultsTable().reset();
         IJ.run(ip, "Analyze Particles...", getConfig().getAnalyzeBase());
 //        IJ.run(ip, "Analyze Particles...", "size=100-10000 circularity=0.1-1.00 bounding rectanble");
-//        dumpResultsTable(ResultsTable.getResultsTable());
+        dumpResultsTable(ResultsTable.getResultsTable());
 //        ResultsTable.getResultsTable().reset();;
 //        IJ.run(ip, "Find Edges", "");
         ip.setTitle("analyze particles");

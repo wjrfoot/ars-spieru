@@ -1,15 +1,26 @@
 package gov.usda.ars.spieru.flour;
 
-
+import ij.IJ;
+import ij.ImagePlus;
+import ij.measure.ResultsTable;
+import ij.process.ByteProcessor;
+import ij.process.ColorProcessor;
+import ij.process.ImageProcessor;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import org.apache.commons.math.stat.descriptive.DescriptiveStatistics;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-
 /**
  *
  * @author wjrfo
@@ -22,6 +33,10 @@ public class MainDialog extends javax.swing.JDialog {
     public MainDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public MainDialog() {
+
     }
 
     /**
@@ -82,23 +97,274 @@ public class MainDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_jBExitActionPerformed
 
     private void jBSelectFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSelectFilesActionPerformed
-              JFileChooser file = new JFileChooser();
-      file.setMultiSelectionEnabled(true);
-      file.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-      file.setFileHidingEnabled(false);
-      if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-         fils = file.getSelectedFiles();
-         for (File fil : fils) {
-         System.err.println(fil.getPath());
-         imageProcessors.add(new Analyze(fil));
-         }
-      }
+
+        JFileChooser file = new JFileChooser();
+        file.setMultiSelectionEnabled(true);
+        file.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        file.setFileHidingEnabled(false);
+
+        if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            fils = file.getSelectedFiles();
+            File outFile = new File(fils[0].getPath(), new SimpleDateFormat("MM-dd-yyyy").format(new Date()));
+            PrintWriter outputPrinter = null;
+            try {
+                outputPrinter = new PrintWriter(outFile);
+                for (File fil : fils) {
+                    Analyze(fil, outputPrinter);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainDialog.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                outputPrinter.close();
+            }
+        }
 
     }//GEN-LAST:event_jBSelectFilesActionPerformed
 
+    /**
+     * splits input file into 5 parts: all, left, right, top, bottom
+     *
+     * @param inputFile
+     * @return
+     */
+    private ImagePlus[] splitImage(File inputFile) {
+
+        ImagePlus[] rtn = new ImagePlus[5];
+
+        ImagePlus ip0 = (ImagePlus) IJ.openImage(inputFile.getAbsolutePath());
+
+        rtn[0] = ip0.duplicate();
+        rtn[0].setTitle("Total");
+//        ip0.show();
+
+        int[] pixels = (int[]) ip0.getProcessor().getPixels();
+
+        ImageProcessor rightIPR = new ColorProcessor(ip0.getWidth() / 2, ip0.getHeight());
+        ImagePlus rightIP = new ImagePlus("Right", rightIPR);
+
+        ImageProcessor leftIPR = new ColorProcessor(ip0.getWidth() / 2, ip0.getHeight());
+        ImagePlus leftIP = new ImagePlus("Left", leftIPR);
+
+        int[] rightPixels = new int[pixels.length / 2];
+        int[] leftPixels = new int[pixels.length / 2];
+        int width = ip0.getWidth();
+
+        for (int pdx = 0; pdx < pixels.length; pdx++) {
+            int rdx = pdx / width;
+            int cdx = pdx % width;
+            if (cdx < width / 2) { // pixel goes into right image
+                rightPixels[(rdx * width / 2) + cdx] = pixels[pdx];
+            } else { // pixel goes into left image                
+                cdx -= width / 2;
+                leftPixels[(rdx * width / 2) + cdx] = pixels[pdx];
+            }
+        }
+
+        leftIPR.setPixels(leftPixels);
+        rightIPR.setPixels(rightPixels);
+
+        rightIP.setTitle("Right");
+        leftIP.setTitle("Left");
+
+//        rightIP.show();
+//        leftIP.show();
+        ImageProcessor topIPR = new ColorProcessor(ip0.getWidth(), ip0.getHeight() / 2);
+        ImagePlus topIP = new ImagePlus("Top", topIPR);
+
+        ImageProcessor bottomIPR = new ColorProcessor(ip0.getWidth(), ip0.getHeight() / 2);
+        ImagePlus bottomIP = new ImagePlus("Bottom", bottomIPR);
+
+        int[] topPixels = new int[pixels.length / 2];
+        int[] bottomPixels = new int[pixels.length / 2];
+
+        for (int pdx = 0; pdx < pixels.length; pdx++) {
+            if (pdx < pixels.length / 2) { // pixel goes into right image
+                topPixels[pdx] = pixels[pdx];
+            } else { // pixel goes into left image                
+                bottomPixels[pdx - pixels.length / 2] = pixels[pdx];
+            }
+        }
+
+        topIPR.setPixels(topPixels);
+        bottomIPR.setPixels(bottomPixels);
+
+        topIP.setTitle("Top");
+        bottomIP.setTitle("Bottom");
+
+//        topIP.show();
+//        bottomIP.show();
+//        rtn[0] = ip0;
+        rtn[1] = topIP;
+        rtn[2] = bottomIP;
+        rtn[3] = leftIP;
+        rtn[4] = rightIP;
+        return rtn;
+    }
+
+    private void Analyze(File inputFile, PrintWriter printWriter) {
+
+// line #2 open file        
+        ImagePlus[] images = splitImage(inputFile);
+
+        System.out.println("input file name " + inputFile.getName());
+
+        ColorThresholder colorThresholder = new ColorThresholder();
+
+        System.err.println(inputFile.getPath());
+
+//// line #2 open image file        
+//        ImagePlus ip0 = IJ.openImage(inputFile.getAbsolutePath());
+//        ip0.show(inputFile.getAbsolutePath());
+        for (ImagePlus ip : images) {
+            
+            saveIntermediateImagePlus(ip, inputFile);
+// line #3 go to the image and duplicate        
+            ImagePlus ip1 = ip.duplicate();
+
+// line #4 smooth
+            ip1.getProcessor().smooth();
+
+// line #5 apply color threshold            
+            colorThresholder.setParams(0, 211, 118, 255, 0, 255, colorThresholder.YUV, colorThresholder.WHITE);
+//                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
+
+            colorThresholder.setIP(ip1);
+
+            colorThresholder.apply(ip1);
+// line #6 sharpen -- removed per instructions
+//            ip1.getProcessor().sharpen();
+            ip1.setTitle(inputFile.getName() + " applied");
+
+//// line #6 replacement -- apply 2nd colorthreshold -- not included while trying to match to paper            
+//            colorThresholder.setParams(0, 211, 118, 255, 0, 255, colorThresholder.YUV, colorThresholder.WHITE);
+////                colorThresholder.setParams(0, 255, 0, 255, 0, 231, colorThresholder.HSB, colorThresholder.WHITE);
+//
+//            colorThresholder.setIP(ip1);
+//
+//            colorThresholder.apply(ip1);
+
+            ImagePlus ip2 = ip1.duplicate();
+
+// line #7 make b&2
+            IJ.run(ip2, "8-bit", "");
+
+            ip2.setTitle("8-bit");
+            ip2.show();
+
+            ImagePlus ip3 = ip2.duplicate();
+
+// line #8 threshold b&w image            
+//        ip3.getProcessor().setThreshold(0, 182);
+            ip3.getProcessor().threshold(182);
+
+            ip3.setTitle("8-bit threshold");
+            ip3.show();
+            
+// reset results table to start fresh for each analysis            
+            ResultsTable.getResultsTable().reset();
+
+// line #9 analyze particles            
+            IJ.run(ip3, "Analyze Particles...", "size=0-10000 circularity=0.1-1.00 bounding rectanble Area Mean Min Max");
+
+            ResultsTable rs1 = ResultsTable.getResultsTable();
+
+            dumpResultsTable(rs1);
+
+            System.out.println("end");
+
+            ColorProcessor colorProcessor = (ColorProcessor) ip1.getProcessor();
+
+            makeOutputFile(ip.getTitle(), colorProcessor, printWriter);
+            
+//            break;
+        }
+    }
+    
+    private void saveIntermediateImagePlus(ImagePlus ip, File inputFile) {
+        
+        File dirFile = inputFile.getParentFile();
+        
+        File outFile = new File(dirFile, ip.getTitle() + ".bmp");
+        
+        IJ.save(ip, outFile.getAbsolutePath());
+    }
+
+    private void makeOutputFile(String title, ColorProcessor colorProcessor, PrintWriter pw) {
+        ResultsTable rs = ResultsTable.getResultsTable();
+//        for (int idx = 0; idx < rs.getCounter(); idx++) {
+//            pw.println(rs.getRowAsString(idx));
+//        }
+        double[] area = rs.getColumn("Area");
+        System.out.println("break");
+
+        
+        DescriptiveStatistics ds = new DescriptiveStatistics(area);
+        pw.printf("%s  mean %6.2f std %6.2f count %d dim %d x %d ", title, ds.getMean(), 
+                ds.getStandardDeviation(), ds.getN(), colorProcessor.getWidth(), colorProcessor.getHeight());
+
+//        DescriptiveStatistics redDS = new DescriptiveStatistics();
+//        DescriptiveStatistics greenDS = new DescriptiveStatistics();
+//        DescriptiveStatistics blueDS = new DescriptiveStatistics();
+        ByteProcessor redProcessor = colorProcessor.getChannel(1, null);
+        int[] redHistorgram = redProcessor.getHistogram();
+        ByteProcessor greenProcessor = colorProcessor.getChannel(2, null);
+        int[] greenHistorgram = greenProcessor.getHistogram();
+        ByteProcessor blueProcessor = colorProcessor.getChannel(3, null);
+        int[] blueHistorgram = blueProcessor.getHistogram();
+
+//        for (int idx = 0; idx < redHistorgram.length; idx++) {
+//            redDS.addValue(redHistorgram[idx] * idx);
+//        }
+//        
+//        for (int idx = 0; idx < greenHistorgram.length; idx++) {
+//            greenDS.addValue(greenHistorgram[idx]);
+//        }
+//        
+//        for (int idx = 0; idx < blueHistorgram.length; idx++) {
+//            blueDS.addValue(blueHistorgram[idx]);
+//        }
+        double[] redStats = calcHistStats(redHistorgram);
+        double[] greenStats = calcHistStats(greenHistorgram);
+        double[] blueStats = calcHistStats(blueHistorgram);
+
+        pw.printf("red %6.2f %6.2f green %6.2f %6.2f blue %6.2f %6.2f\n",
+                redStats[0], redStats[1], greenStats[0], greenStats[1], blueStats[0], blueStats[1]);
+    }
+
+    // todo fix this
+    /**
+     * really stupid way of doing this but I'm having trouble calculating std
+     *
+     * @param histogram
+     * @return
+     */
+    private double[] calcHistStats(int[] histogram) {
+        DescriptiveStatistics ds = new DescriptiveStatistics();
+        for (int idx = 0; idx < histogram.length - 1; idx++) {
+            for (int jdx = 0; jdx < histogram[idx]; jdx++) {
+                ds.addValue(idx);
+            }
+        }
+        double[] rtnVal = new double[2];
+        rtnVal[0] = ds.getMean();
+        rtnVal[1] = ds.getStandardDeviation();
+        return rtnVal;
+    }
+
+    private void dumpResultsTable(ResultsTable rs) {
+        System.out.println("Results Table " + rs.getCounter());
+        System.out.println(rs.getColumnHeadings());
+        for (int idx = 0; idx < rs.getCounter(); idx++) {
+            System.out.println(rs.getRowAsString(idx));
+
+        }
+    }
+
     private File[] fils;
     private ArrayList<Analyze> imageProcessors = new ArrayList<>();
-    
+
+    private static boolean test = true;
+
     /**
      * @param args the command line arguments
      */
@@ -126,17 +392,34 @@ public class MainDialog extends javax.swing.JDialog {
         }
         //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(() -> {
-            MainDialog dialog = new MainDialog(new javax.swing.JFrame(), false);
-            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
-                }
+        if (test) {
+            //C:\Users\wjrfo\Documents\2018 June flour pics
+//            String fileName = "C:\\Users\\wjrfo\\Documents\\2018 June flour pics\\testPanel.bmp";
+            String fileName = "C:\\Users\\wjrfo\\Documents\\2018 June flour pics\\FLOUR\\sm-5008_1200.bmp";
+            MainDialog md = new MainDialog();
+            File outFile = new File(new File(fileName).getParent(), new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss").format(new Date()));
+            PrintWriter outputPrinter = null;
+            try {
+                outputPrinter = new PrintWriter(outFile);
+                md.Analyze(new File(fileName), outputPrinter);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(MainDialog.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                outputPrinter.close();
+            }
+        } else {
+            /* Create and display the dialog */
+            java.awt.EventQueue.invokeLater(() -> {
+                MainDialog dialog = new MainDialog(new javax.swing.JFrame(), false);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             });
-            dialog.setVisible(true);
-        });
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
